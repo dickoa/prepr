@@ -23,19 +23,18 @@ st_prepair <- function(x, min_area = 0, point_set = FALSE, ...)
 st_prepair.sfc <- function(x, min_area = 0, point_set = FALSE, ...) {
   if (!sf::st_geometry_type(x) %in% c("POLYGON", "MULTIPOLYGON"))
     stop("Only POLYGON or MULTIPOLYGON are supported", call. = FALSE)
-  st_sfc(CPL_prepair(x, min_area, point_set))
+  st_sfc(CPL_prepair(x, min_area, point_set), crs = st_crs(x))
 }
 
 #' @export
 st_prepair.sf <- function(x, min_area = 0, point_set = FALSE, ...) {
-  st_prepair(st_geometry(x), min_area, point_set)
+  st_set_geometry(x, st_prepair(st_geometry(x), min_area, point_set))
 }
 
 #' @export
 st_prepair.sfg <- function(x, min_area = 0, point_set = FALSE, ...) {
   st_prepair(st_geometry(x), min_area, point_set)
 }
-
 
 #' @useDynLib prepair
 #' @importFrom Rcpp sourceCpp
