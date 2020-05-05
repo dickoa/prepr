@@ -15,27 +15,27 @@
 #' st_prepair(p1)
 #' st_is_valid(st_prepair(p1))
 #'
+#' @seealso \code{sf::st_make_valid} for another approach at fixing broken polygon
 #' @export
-st_prepair <- function(x, min_area = 0, point_set = FALSE, ...)
+st_prepair <- function(x, min_area = 0, point_set = FALSE)
   UseMethod("st_prepair")
 
 #' @export
-st_prepair.sfc <- function(x, min_area = 0, point_set = FALSE, ...) {
+st_prepair.sfc <- function(x, min_area = 0, point_set = FALSE) {
   if (!sf::st_geometry_type(x) %in% c("POLYGON", "MULTIPOLYGON"))
     stop("Only POLYGON or MULTIPOLYGON are supported", call. = FALSE)
   st_sfc(CPL_prepair(x, min_area, point_set), crs = st_crs(x))
 }
 
 #' @export
-st_prepair.sf <- function(x, min_area = 0, point_set = FALSE, ...) {
+st_prepair.sf <- function(x, min_area = 0, point_set = FALSE) {
   st_set_geometry(x, st_prepair(st_geometry(x), min_area, point_set))
 }
 
 #' @export
-st_prepair.sfg <- function(x, min_area = 0, point_set = FALSE, ...) {
+st_prepair.sfg <- function(x, min_area = 0, point_set = FALSE) {
   st_prepair(st_geometry(x), min_area, point_set)
 }
 
-#' @useDynLib prepair
-#' @importFrom Rcpp sourceCpp
+#' @useDynLib prepair, .registration = TRUE
 NULL

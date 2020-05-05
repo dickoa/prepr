@@ -5,6 +5,8 @@
 // [[Rcpp::depends(sf)]]
 #include <sf.h>
 
+// wrapper to handle error
+// borrowed from sf source code
 void handle_error(OGRErr err) {
 	if (err != OGRERR_NONE) {
 		switch (err) {

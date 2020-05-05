@@ -8,7 +8,7 @@ Description: Repair broken polygons
       See
       <http://cran.r-project.org/doc/manuals/r-release/R-exts.html#The-DESCRIPTION-file>
 Depends: R (>= 3.5.0)
-License: GPL (>= 3)
+License: GPL (>= 2)
 Encoding: UTF-8
 URL: https://gitlab.com/dickoa/prepair
 BugReports: https://gitlab.com/dickoa/prepair/issues

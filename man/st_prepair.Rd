@@ -4,7 +4,7 @@
 \alias{st_prepair}
 \title{Polygon repair}
 \usage{
-st_prepair(x, min_area = 0, point_set = FALSE, ...)
+st_prepair(x, min_area = 0, point_set = FALSE)
 }
 \arguments{
 \item{x}{object of class \code{sf}, \code{sfc} or \code{sfg}}
@@ -26,4 +26,7 @@ st_is_valid(p1)
 st_prepair(p1)
 st_is_valid(st_prepair(p1))
 
+}
+\seealso{
+\code{sf::st_make_valid} for another approach at fixing broken polygon
 }

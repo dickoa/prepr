@@ -2,6 +2,6 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 CPL_prepair <- function(sfc, min_area, point_set) {
-    .Call('_prepair_CPL_prepair', PACKAGE = 'prepair', sfc, min_area, point_set)
+    .Call(`_prepair_CPL_prepair`, sfc, min_area, point_set)
 }
 
