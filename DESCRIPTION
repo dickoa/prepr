@@ -1,0 +1,29 @@
+Package: prepair
+Type: Package
+Title: Repair broken polygon
+Version: 0.1.9000
+Date: 2020-05-05
+Authors@R: person("Ahmadou", "Dicko", email = "mail@ahmadoudicko.com", role = c("aut", "cre"))
+Description: Repair broken polygons
+      See
+      <http://cran.r-project.org/doc/manuals/r-release/R-exts.html#The-DESCRIPTION-file>
+Depends: R (>= 3.5.0)
+License: GPL (>= 3)
+Encoding: UTF-8
+URL: https://gitlab.com/dickoa/prepair
+BugReports: https://gitlab.com/dickoa/prepair/issues
+LinkingTo:
+    Rcpp,
+    sf (>= 0.6-0),
+    BH
+Imports:
+    Rcpp,
+    sf (>= 0.9-3)
+Suggests:
+    roxygen2,
+    devtools,
+    knitr,
+    testthat,
+    covr
+VignetteBuilder: knitr
+RoxygenNote: 7.1.0
