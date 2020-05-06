@@ -17,9 +17,15 @@ An R package to repair broken GIS polygons using the
 
 ## Installation
 
-You can install the development version of prepair from
-[Gitlab](https://gitlab.com/dickoa/prepair) using the `remotes` package
-with:
+The `prepair` Cpp library need these two libraries to compile:
+
+  - [`CGAL`](https://www.cgal.org/)
+  - [`GDAL`](https://gdal.org/)
+
+After installing these two libraries, you can now install the
+development version of `prepair` R package from
+[Gitlab](https://gitlab.com/dickoa/prepair) using the `remotes` R
+package with:
 
 ``` r
 # install.packages("remotes")
@@ -35,6 +41,7 @@ This is a basic example which shows you how to solve a common problem:
 ``` r
 library(prepair)
 library(sf)
+#> Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.1
 
 p1 <- st_as_sfc("POLYGON((0 0, 0 10, 10 0, 10 10, 0 0))")
 st_is_valid(p1, reason = TRUE)
@@ -42,6 +49,9 @@ st_is_valid(p1, reason = TRUE)
 p11 <- st_prepair(p1)
 st_is_valid(p11)
 #> [1] TRUE
+
+st_as_text(p11)
+#> [1] "MULTIPOLYGON (((0 10, 0 0, 5 5, 0 10)), ((5 5, 10 0, 10 10, 5 5)))"
 
 par(mfrow = c(1, 2))
 plot(p1, main = "RAW")
@@ -68,6 +78,9 @@ p33 <- st_prepair(p3)
 st_is_valid(p33)
 #> [1] TRUE
 
+st_as_text(p33)
+#> [1] "MULTIPOLYGON (((10 2, 10 7, 10 10, 0 10, 0 0, 10 0, 10 2)))"
+
 par(mfrow = c(1, 2))
 plot(p3, main = "RAW")
 plot(p33, main = "Repaired")
@@ -84,6 +97,9 @@ st_is_valid(p4, reason = TRUE)
 p44 <- st_prepair(p4)
 st_is_valid(p44)
 #> [1] TRUE
+
+st_as_text(p44)
+#> [1] "MULTIPOLYGON (((0 0, 10 0, 10 10, 0 10, 0 0)))"
 
 par(mfrow = c(1, 2))
 plot(p4, main = "RAW")
@@ -102,6 +118,9 @@ p66 <- st_prepair(p6)
 st_is_valid(p66)
 #> [1] TRUE
 
+st_as_text(p66)
+#> [1] "MULTIPOLYGON (((10 0, 10 10, 0 10, 0 0, 10 0), (1 1, 1 8, 3 8, 5 8, 5 1, 3 1, 1 1)))"
+
 par(mfrow = c(1, 2))
 plot(p6, main = "RAW")
 plot(p66, main = "Repaired")
@@ -118,6 +137,9 @@ st_is_valid(p7, reason = TRUE)
 p77 <- st_prepair(p7)
 st_is_valid(p77)
 #> [1] TRUE
+
+st_as_text(p77)
+#> [1] "MULTIPOLYGON (((10 0, 10 10, 0 10, 0 0, 10 0), (5 2, 2 2, 2 8, 5 8, 5 2)), ((3 4, 3 3, 4 3, 3 4)))"
 
 par(mfrow = c(1, 2))
 plot(p7, main = "RAW")

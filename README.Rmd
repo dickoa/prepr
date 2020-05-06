@@ -25,7 +25,12 @@ An R package to repair broken GIS polygons using the [`prepair`](https://github.
 
 ## Installation
 
-You can install the development version of prepair from [Gitlab](https://gitlab.com/dickoa/prepair) using the `remotes` package with:
+The `prepair` Cpp library need these two libraries to compile:
+
+- [`CGAL`](https://www.cgal.org/)
+- [`GDAL`](https://gdal.org/)
+
+After installing these two libraries, you can now install the development version of `prepair` R package from [Gitlab](https://gitlab.com/dickoa/prepair) using the `remotes` R package with:
 
 ```{r, eval = FALSE}
 # install.packages("remotes")
@@ -47,6 +52,8 @@ st_is_valid(p1, reason = TRUE)
 p11 <- st_prepair(p1)
 st_is_valid(p11)
 
+st_as_text(p11)
+
 par(mfrow = c(1, 2))
 plot(p1, main = "RAW")
 plot(p11, main = "Repaired")
@@ -67,6 +74,8 @@ st_is_valid(p3, reason = TRUE)
 p33 <- st_prepair(p3)
 st_is_valid(p33)
 
+st_as_text(p33)
+
 par(mfrow = c(1, 2))
 plot(p3, main = "RAW")
 plot(p33, main = "Repaired")
@@ -79,6 +88,8 @@ p4 <- st_as_sfc("POLYGON((0 0, 10 0, 15 5, 10 0, 10 10, 0 10, 0 0))")
 st_is_valid(p4, reason = TRUE)
 p44 <- st_prepair(p4)
 st_is_valid(p44)
+
+st_as_text(p44)
 
 par(mfrow = c(1, 2))
 plot(p4, main = "RAW")
@@ -93,6 +104,8 @@ st_is_valid(p6, reason = TRUE)
 p66 <- st_prepair(p6)
 st_is_valid(p66)
 
+st_as_text(p66)
+
 par(mfrow = c(1, 2))
 plot(p6, main = "RAW")
 plot(p66, main = "Repaired")
@@ -104,6 +117,8 @@ p7 <- st_as_sfc("POLYGON((0 0, 10 0, 10 10, 0 10, 0 0), (2 8, 5 8, 5 2, 2 2, 2 8
 st_is_valid(p7, reason = TRUE)
 p77 <- st_prepair(p7)
 st_is_valid(p77)
+
+st_as_text(p77)
 
 par(mfrow = c(1, 2))
 plot(p7, main = "RAW")
