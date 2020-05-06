@@ -1,12 +1,12 @@
 Package: prepair
 Type: Package
-Title: Repair broken polygon
+Title: Automatic repair of single GIS polygons
 Version: 0.1.9000
 Date: 2020-05-05
 Authors@R: person("Ahmadou", "Dicko", email = "mail@ahmadoudicko.com", role = c("aut", "cre"))
-Description: Repair broken polygons
-      See
-      <http://cran.r-project.org/doc/manuals/r-release/R-exts.html#The-DESCRIPTION-file>
+Description: Automatically Repair broken GIS polygons and returns back a valid polygon
+      using the prepair Cpp, see
+      <https://github.com/tudelft3d/prepair>
 Depends: R (>= 3.5.0)
 License: GPL (>= 2)
 Encoding: UTF-8
@@ -26,4 +26,5 @@ Suggests:
     testthat,
     covr
 VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0

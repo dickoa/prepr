@@ -17,7 +17,7 @@ by default use the odd-even algorithm}
 \item{...}{ignored}
 }
 \description{
-Automatically repair "broken" simple features polygons according to the international standard ISO19107
+Automatically repair single polygons (according to the OGC Simple Features / ISO19107 rules) using a constrained triangulation approach.
 }
 \examples{
 library(sf)

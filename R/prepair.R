@@ -1,6 +1,6 @@
 #' Polygon repair
 #'
-#' Automatically repair "broken" simple features polygons according to the international standard ISO19107
+#' Automatically repair single polygons (according to the OGC Simple Features / ISO19107 rules) using a constrained triangulation approach.
 #'
 #' @param x object of class \code{sf}, \code{sfc} or \code{sfg}
 #' @param min_area mininum area to keep in output
@@ -36,6 +36,3 @@ st_prepair.sf <- function(x, min_area = 0, point_set = FALSE) {
 st_prepair.sfg <- function(x, min_area = 0, point_set = FALSE) {
   st_prepair(st_geometry(x), min_area, point_set)
 }
-
-#' @useDynLib prepair, .registration = TRUE
-NULL
