@@ -12,7 +12,7 @@ Coverage](https://codecov.io/gl/dickoa/prepair/branch/master/graph/badge.svg)](h
 [![](http://www.r-pkg.org/badges/version/prepair)](http://www.r-pkg.org/pkg/prepair)
 <!-- badges: end -->
 
-<img src="https://gitlab.com/dickoa/prepair/-/raw/master/man/figures/hex-repair.png" width="250px" style="display: block; margin: auto auto auto 0;" />
+<img src="https://gitlab.com/dickoa/prepair/-/raw/master/man/figures/hex-prepair.png" width="250px" style="display: block; margin: auto auto auto 0;" />
 
 An R package to repair broken GIS polygons using the
 [`prepair`](https://github.com/tudelft3d/prepair) Cpp library.
