@@ -68,31 +68,81 @@ Rcpp::List sfc_from_single_ogr(OGRGeometry *g, bool destroy = false) {
   return ret;
 }
 
+std::vector<OGRGeometry *> ogr_from_sfc2(Rcpp::List sfc) {
+
+  Rcpp::List wkblst = sf::CPL_write_wkb(sfc, false);
+  std::vector<OGRGeometry *> g(sfc.length());
+
+  for (int i = 0; i < wkblst.length(); i++) {
+    Rcpp::RawVector r = wkblst[i];
+    OGRErr err = OGRGeometryFactory::createFromWkb(&(r[0]), NULL, &(g[i]),
+						   r.length(), wkbVariantIso);
+    if (err != OGRERR_NONE) {
+      if (g[i] != NULL)
+	OGRGeometryFactory::destroyGeometry(g[i]);
+      handle_error(err);
+    }
+  }
+  return g;
+}
+
+
+Rcpp::List sfc_from_ogr2(std::vector<OGRGeometry *> g, bool destroy = false) {
+  OGRwkbGeometryType type = wkbGeometryCollection;
+  Rcpp::List lst(g.size());
+  for (size_t i = 0; i < g.size(); i++) {
+    if (g[i] == NULL)
+      g[i] = OGRGeometryFactory::createGeometry(type);
+    else
+      type = g[i]->getGeometryType();
+    Rcpp::RawVector raw(g[i]->WkbSize());
+    handle_error(g[i]->exportToWkb(wkbNDR, &(raw[0]), wkbVariantIso));
+    lst[i] = raw;
+    if (destroy)
+      OGRGeometryFactory::destroyGeometry(g[i]);
+  }
+  Rcpp::List ret = sf::CPL_read_wkb(lst, false, false);
+  ret.attr("class") = "sfc";
+  return ret;
+}
+
 Rcpp::List CPL_sfc_from_wkt2(Rcpp::CharacterVector wkt) {
-  OGRGeometry *g;
-  char *wkt_str = wkt(0);
-  handle_error(OGRGeometryFactory::createFromWkt((const char*) wkt_str, NULL, &g));
-  return sfc_from_single_ogr(g, true);
+	std::vector<OGRGeometry *> g(wkt.size());
+	OGRGeometryFactory f;
+	for (int i = 0; i < wkt.size(); i++) {
+		char *wkt_str = wkt(i);
+#if GDAL_VERSION_MAJOR <= 2 && GDAL_VERSION_MINOR <= 2
+		handle_error(f.createFromWkt(&wkt_str, NULL, &(g[i])));
+#else
+		handle_error(f.createFromWkt( (const char*) wkt_str, NULL, &(g[i])));
+#endif
+	}
+	return sfc_from_ogr2(g, true);
 }
 
 // [[Rcpp::export]]
 Rcpp::List CPL_prepair(Rcpp::List sfc, double min_area, bool point_set) {
 
-  OGRGeometry *geometry = single_ogr_from_sfc(sfc);
+  std::vector<OGRGeometry *> input = ogr_from_sfc2(sfc);
+  Rcpp::CharacterVector wkt_v(input.size());
   PolygonRepair prepair;
   OGRMultiPolygon *out_polygons;
 
-  if (point_set) {
-    out_polygons = prepair.repairPointSet(geometry, 0);
-  } else {
-    out_polygons = prepair.repairOddEven(geometry, 0);
-  }
+  for (size_t i = 0; i < input.size(); i++) {
 
-  if (min_area > 0) {
-    prepair.removeSmallPolygons(out_polygons, min_area);
-  }
+    if (point_set) {
+      out_polygons = prepair.repairPointSet(input[i], 0);
+    } else {
+      out_polygons = prepair.repairOddEven(input[i], 0);
+    }
 
-  char *output_wkt;
-  out_polygons->exportToWkt(&output_wkt);
-  return CPL_sfc_from_wkt2(output_wkt);
+    if (min_area > 0) {
+      prepair.removeSmallPolygons(out_polygons, min_area);
+    }
+
+    char *output_wkt;
+    out_polygons->exportToWkt(&output_wkt);
+    wkt_v[i] = output_wkt;
+  }
+  return CPL_sfc_from_wkt2(wkt_v);
 }
