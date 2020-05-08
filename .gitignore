@@ -8,6 +8,7 @@ inst/doc
 
 src/*.o
 src/*.so
+src/*.dll
 
 # RStudio files
 .Rproj.user/
@@ -15,3 +16,9 @@ src/*.so
 # produced vignettes
 vignettes/*.html
 vignettes/*.pdf
+
+src/Makevars
+config.log
+config.status
+
+autom4te.cache/*

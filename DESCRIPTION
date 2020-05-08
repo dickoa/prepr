@@ -8,7 +8,7 @@ Description: Automatically Repair broken GIS polygons and returns back a valid p
       using the prepair Cpp, see
       <https://github.com/tudelft3d/prepair>
 Depends: R (>= 3.5.0)
-License: GPL (>= 2)
+License: GPL-3
 Encoding: UTF-8
 URL: https://gitlab.com/dickoa/prepair
 BugReports: https://gitlab.com/dickoa/prepair/issues
