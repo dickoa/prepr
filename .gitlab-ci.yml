@@ -1,14 +1,15 @@
-image: rocker/tidyverse:latest
+image: rocker/r-base:latest
 
 pages:
   stage: deploy
 
   before_script:
     - apt-get update -qq
-    - apt-get install -t software-properties-common --yes
-    - apt-get install -t --yes libssl-dev libssh2-1-dev libxml2-dev libcurl4-openssl-dev libgit2-dev libmagick++-dev pandoc pandoc-citeproc libudunits2-dev libgdal-dev zlib1g-dev
+    - apt-get install -t unstable software-properties-common --yes
+    - apt-get install -t unstable --yes libssl-dev libssh2-1-dev libxml2-dev libcurl4-openssl-dev libgit2-dev libmagick++-dev pandoc pandoc-citeproc libudunits2-dev libgdal-dev zlib1g-dev
 
   script:
+    - Rscript -e 'install.packages(c("devtools", "tidyverse", "remotes", "pkgdown", "testthat"))'
     - Rscript -e 'devtools::install_deps(dependencies = TRUE)'
     - Rscript -e 'remotes::install_gitlab("dickoa/prepair")'
     - Rscript -e 'pkgdown::build_site(override = list(destination = "public"))'
