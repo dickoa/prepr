@@ -120,16 +120,22 @@ fi
 AC_SUBST([PKG_CXXFLAGS], ["${GDAL_CXXFLAGS}"])
 AC_SUBST([PKG_LIBS], ["${GDAL_LIBS}"])
 
-AC_CHECK_LIB(CGAL,main)
-[CGAL_LIBS="-lCGAL -lgmp -lmpfr -lboost_program_options"]
-AC_SUBST(CGAL_LIBS)
-[CGAL_CXXFLAGS="-DBOOST_ALL_NO_LIB -DBOOST_PROGRAM_OPTIONS_DYN_LINK -DRCPP_NO_RTTI -DCGAL_USE_GMP -DCGAL_USE_MPFR -frounding-math"]
+#
+# CGAL flags
+#
+[CGAL_CXXFLAGS="-DCGAL_HEADER_ONLY=1 -DBOOST_ALL_NO_LIB -DBOOST_PROGRAM_OPTIONS_DYN_LINK -DRCPP_NO_RTTI -DCGAL_USE_GMP -DCGAL_USE_MPFR -frounding-math"]
 AC_SUBST(CGAL_CXXFLAGS)
 
 #
+# ADD GMP/MPFR
 #
-#
-AC_SUBST([PKG_LIBS], ["${PKG_LIBS} ${CGAL_LIBS}"])
+AC_CHECK_LIB(gmp, __gmpz_init, ,
+    [AC_MSG_ERROR([GNU MP not found!])])
+
+AC_CHECK_LIB(mpfr, mpfr_init, ,
+    [AC_MSG_ERROR([MPFR Library not found!])])
+
+AC_SUBST([PKG_LIBS], ["${PKG_LIBS} -lgmp -lmpfr -lboost_program_options"])
 AC_SUBST([PKG_CXXFLAGS], ["${PKG_CXXFLAGS} ${CGAL_CXXFLAGS}"])
 
 #

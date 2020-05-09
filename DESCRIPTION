@@ -13,6 +13,7 @@ BugReports: https://gitlab.com/dickoa/prepair/issues
 LinkingTo:
     Rcpp,
     sf (>= 0.6-0),
+    cgal4headers,
     BH
 Imports:
     Rcpp,
@@ -27,3 +28,4 @@ Suggests:
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
+Remotes: gitlab::dickoa/cgal4headers

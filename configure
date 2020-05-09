@@ -584,8 +584,6 @@ PACKAGE_URL=
 ac_unique_file="src/prepair.cpp"
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
-CGAL_CXXFLAGS
-CGAL_LIBS
 OBJEXT
 EXEEXT
 ac_ct_CC
@@ -593,6 +591,7 @@ CPPFLAGS
 LDFLAGS
 CFLAGS
 CC
+CGAL_CXXFLAGS
 PKG_LIBS
 PKG_CXXFLAGS
 GDAL_CONFIG
@@ -1961,6 +1960,15 @@ PKG_CXXFLAGS="${GDAL_CXXFLAGS}"
 PKG_LIBS="${GDAL_LIBS}"
 
 
+#
+# CGAL flags
+#
+CGAL_CXXFLAGS="-DCGAL_HEADER_ONLY=1 -DBOOST_ALL_NO_LIB -DBOOST_PROGRAM_OPTIONS_DYN_LINK -DRCPP_NO_RTTI -DCGAL_USE_GMP -DCGAL_USE_MPFR -frounding-math"
+
+
+#
+# ADD GMP/MPFR
+#
 ac_ext=c
 ac_cpp='$CPP $CPPFLAGS'
 ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
@@ -2751,54 +2759,103 @@ ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $
 ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for main in -lCGAL" >&5
-$as_echo_n "checking for main in -lCGAL... " >&6; }
-if ${ac_cv_lib_CGAL_main+:} false; then :
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for __gmpz_init in -lgmp" >&5
+$as_echo_n "checking for __gmpz_init in -lgmp... " >&6; }
+if ${ac_cv_lib_gmp___gmpz_init+:} false; then :
   $as_echo_n "(cached) " >&6
 else
   ac_check_lib_save_LIBS=$LIBS
-LIBS="-lCGAL  $LIBS"
+LIBS="-lgmp  $LIBS"
 cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
 
-
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char __gmpz_init ();
 int
 main ()
 {
-return main ();
+return __gmpz_init ();
   ;
   return 0;
 }
 _ACEOF
 if ac_fn_c_try_link "$LINENO"; then :
-  ac_cv_lib_CGAL_main=yes
+  ac_cv_lib_gmp___gmpz_init=yes
 else
-  ac_cv_lib_CGAL_main=no
+  ac_cv_lib_gmp___gmpz_init=no
 fi
 rm -f core conftest.err conftest.$ac_objext \
     conftest$ac_exeext conftest.$ac_ext
 LIBS=$ac_check_lib_save_LIBS
 fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_CGAL_main" >&5
-$as_echo "$ac_cv_lib_CGAL_main" >&6; }
-if test "x$ac_cv_lib_CGAL_main" = xyes; then :
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_gmp___gmpz_init" >&5
+$as_echo "$ac_cv_lib_gmp___gmpz_init" >&6; }
+if test "x$ac_cv_lib_gmp___gmpz_init" = xyes; then :
   cat >>confdefs.h <<_ACEOF
-#define HAVE_LIBCGAL 1
+#define HAVE_LIBGMP 1
 _ACEOF
 
-  LIBS="-lCGAL $LIBS"
+  LIBS="-lgmp $LIBS"
 
+else
+  as_fn_error $? "GNU MP not found!" "$LINENO" 5
 fi
 
-CGAL_LIBS="-lCGAL -lgmp -lmpfr -lboost_program_options"
 
-CGAL_CXXFLAGS="-DBOOST_ALL_NO_LIB -DBOOST_PROGRAM_OPTIONS_DYN_LINK -DRCPP_NO_RTTI -DCGAL_USE_GMP -DCGAL_USE_MPFR -frounding-math"
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for mpfr_init in -lmpfr" >&5
+$as_echo_n "checking for mpfr_init in -lmpfr... " >&6; }
+if ${ac_cv_lib_mpfr_mpfr_init+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lmpfr  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char mpfr_init ();
+int
+main ()
+{
+return mpfr_init ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_mpfr_mpfr_init=yes
+else
+  ac_cv_lib_mpfr_mpfr_init=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_mpfr_mpfr_init" >&5
+$as_echo "$ac_cv_lib_mpfr_mpfr_init" >&6; }
+if test "x$ac_cv_lib_mpfr_mpfr_init" = xyes; then :
+  cat >>confdefs.h <<_ACEOF
+#define HAVE_LIBMPFR 1
+_ACEOF
+
+  LIBS="-lmpfr $LIBS"
+
+else
+  as_fn_error $? "MPFR Library not found!" "$LINENO" 5
+fi
 
 
-#
-#
-#
-PKG_LIBS="${PKG_LIBS} ${CGAL_LIBS}"
+PKG_LIBS="${PKG_LIBS} -lgmp -lmpfr -lboost_program_options"
 
 PKG_CXXFLAGS="${PKG_CXXFLAGS} ${CGAL_CXXFLAGS}"
 
