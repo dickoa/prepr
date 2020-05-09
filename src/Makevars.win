@@ -5,9 +5,9 @@ TARGET = lib$(subst gcc,,$(COMPILED_BY))$(R_ARCH)
 PKG_LIBS = \
 	-L$(RWINLIB)/$(TARGET) \
 	-L$(RWINLIB)/lib$(R_ARCH) \
-	-lgdal -lmpfr -lgmp -lCGAL -lboost_program_options
+	-lgdal -lmpfr -lgmp -lboost_program_options
 
-PKG_LIBS = -L${RWINLIB}/lib${R_ARCH} -lmpfr -lgmp -lgdal -lCGAL -lboost_program_options
+PKG_LIBS = -L${RWINLIB}/lib${R_ARCH} -lmpfr -lgmp -lgdal -lboost_program_options
 PKG_CXXFLAGS = -I$(RWINLIB)/include/gdal-3.0.4 -DBOOST_ALL_NO_LIB -DBOOST_PROGRAM_OPTIONS_DYN_LINK -DRCPP_NO_RTTI -DCGAL_USE_GMP -DCGAL_USE_MPFR -frounding-math
 CXX_STD = CXX11
 
