@@ -6,13 +6,14 @@ variables:
   CHECK_DIR: "$CI_PROJECT_DIR/ci/logs"
   BUILD_LOGS_DIR: "$CI_PROJECT_DIR/ci/logs/$CI_PROJECT_NAME.Rcheck"
 
-before_script:
-  - apt-get update -qq
-  - apt-get install -t unstable software-properties-common --yes
-  - apt-get install -t unstable --yes libssl-dev libssh2-1-dev libxml2-dev libcurl4-gnutls-dev libgit2-dev libmagick++-dev pandoc pandoc-citeproc libudunits2-dev libgdal-dev libcgal-dev
 
 test:
   stage: test
+
+  before_script:
+    - apt-get update -qq
+    - apt-get install -t unstable software-properties-common --yes
+    - apt-get install -t unstable --yes libssl-dev libssh2-1-dev libxml2-dev libcurl4-gnutls-dev libgit2-dev libmagick++-dev pandoc pandoc-citeproc libudunits2-dev libgdal-dev
 
   script:
     - mkdir -p $R_LIBS_USER $BUILD_LOGS_DIR
