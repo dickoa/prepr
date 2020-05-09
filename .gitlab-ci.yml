@@ -1,5 +1,11 @@
 image: rocker/r-base:latest
 
+variables:
+  R_LIBS_USER: "$CI_PROJECT_DIR/ci/lib"
+  CHECK_DIR: "$CI_PROJECT_DIR/ci/logs"
+  BUILD_LOGS_DIR: "$CI_PROJECT_DIR/ci/logs/$CI_PROJECT_NAME.Rcheck"
+  PUBLIC_SITE_DIR: "$CI_PROJECT_DIR/public"
+
 test:
 
   before_script:
@@ -8,26 +14,26 @@ test:
     - apt-get install -t unstable --yes libssl-dev libssh2-1-dev libxml2-dev libcurl4-gnutls-dev libgit2-dev libmagick++-dev pandoc pandoc-citeproc libudunits2-dev libgdal-dev zlib1g-dev libcgal-dev
 
   script:
-  - mkdir -p $R_LIBS_USER $BUILD_LOGS_DIR
-  - Rscript -e 'install.packages(c("devtools", "tidyverse", "remotes", "pkgdown", "testthat", "covr"))'
-  - Rscript -e 'devtools::install_deps(dependencies = TRUE, lib = Sys.getenv("R_LIBS_USER"))'
-  - Rscript -e 'devtools::check(check_dir = Sys.getenv("CHECK_DIR"))'
-  - Rscript -e 'if (length(devtools::check_failures(path = Sys.getenv("BUILD_LOGS_DIR"), note = FALSE)) > 0) stop()'
+    - mkdir -p $R_LIBS_USER $BUILD_LOGS_DIR $PUBLIC_SITE_DIR
+    - Rscript -e 'install.packages(c("devtools", "tidyverse", "remotes", "pkgdown", "testthat", "covr"))'
+    - Rscript -e 'devtools::install_deps(dependencies = TRUE, lib = Sys.getenv("R_LIBS_USER"))'
+    - Rscript -e 'devtools::check(check_dir = Sys.getenv("CHECK_DIR"))'
+    - Rscript -e 'if (length(devtools::check_failures(path = Sys.getenv("BUILD_LOGS_DIR"), note = FALSE)) > 0) stop()'
 
   cache:
     paths:
     - $R_LIBS_USER
 
-after_script:
-  - Rscript -e 'covr::package_coverage(Sys.getenv("CI_PROJECT_DIR"))'
+  after_script:
+    - Rscript -e 'covr::package_coverage(Sys.getenv("CI_PROJECT_DIR"))'
 
 pages:
   stage: deploy
 
   script:
     - Rscript -e 'remotes::install_gitlab("dickoa/prepair")'
-    - Rscript -e 'pkgdown::build_site(override = list(destination = "public"))'
+    - Rscript -e 'pkgdown::build_site(override = list(destination = Sys.getenv("PUBLIC_SITE_DIR")))'
 
   artifacts:
     paths:
-      - public
+      - $PUBLIC_SITE_DIR
