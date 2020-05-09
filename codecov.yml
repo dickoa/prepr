@@ -1,0 +1,20 @@
+comment: false
+ignore:
+  - "prepair/src/RcppExports.cpp"
+  - "prepair/src/Polygonrepair.cpp"
+  - "prepair/src/Polygonrepair.h"
+  - "prepair/src/Triangleinfo.cpp"
+  - "prepair/src/Triangleinfo.h"
+  - "prepair/src/definitions.h"
+  - "prepair/src/prepair.cpp"
+
+coverage:
+  status:
+    patch:
+      default:
+        target: 0
+        threshold: 100
+    project:
+      default:
+        target: 70
+        threshold: 100

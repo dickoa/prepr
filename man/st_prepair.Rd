@@ -12,9 +12,7 @@ st_prepair(x, min_area = 0, point_set = FALSE)
 \item{min_area}{mininum area to keep in output}
 
 \item{point_set}{if TRUE use the point set difference algorithm for the rings (outer-inner)
-by default use the odd-even algorithm}
-
-\item{...}{ignored}
+by default (point_set = FALSE) the odd-even algorithm is used}
 }
 \description{
 Automatically repair single polygons (according to the OGC Simple Features / ISO19107 rules) using a constrained triangulation approach.
@@ -25,8 +23,7 @@ p1 <- st_as_sfc("POLYGON((0 0, 0 10, 10 0, 10 10, 0 0))")
 st_is_valid(p1)
 st_prepair(p1)
 st_is_valid(st_prepair(p1))
-
 }
 \seealso{
-\code{sf::st_make_valid} for another approach at fixing broken polygon
+\code{sf::st_make_valid} for another approach at fixing broken polygons
 }

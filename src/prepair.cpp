@@ -5,8 +5,7 @@
 // [[Rcpp::depends(sf)]]
 #include <sf.h>
 
-// wrapper to handle error
-// borrowed from sf source code
+// borrowed from sf source code, (c) Edzer Pebesma
 void handle_error(OGRErr err) {
 	if (err != OGRERR_NONE) {
 		switch (err) {
@@ -41,33 +40,7 @@ Rcpp::List create_na_crs() {
   return crs;
 }
 
-OGRGeometry *single_ogr_from_sfc(Rcpp::List sfc) {
-  OGRGeometry *g;
-  Rcpp::List wkblst = sf::CPL_write_wkb(sfc, false);
-  Rcpp::RawVector wkb = wkblst[0];
-  OGRErr err = OGRGeometryFactory::createFromWkb(&(wkb[0]), NULL, &g, wkb.length(), wkbVariantIso);
-  if (err != OGRERR_NONE) {
-    if (g != NULL)
-      OGRGeometryFactory::destroyGeometry(g);
-    handle_error(err);
-  }
-  return g;
-}
-
-Rcpp::List sfc_from_single_ogr(OGRGeometry *g, bool destroy = false) {
-  OGRwkbGeometryType type = wkbGeometryCollection;
-  Rcpp::List crs = create_na_crs();
-  type = g->getGeometryType();
-  Rcpp::RawVector raw(g->WkbSize());
-  g->exportToWkb(wkbNDR, &(raw[0]), wkbVariantIso);
-  if (destroy)
-    OGRGeometryFactory::destroyGeometry(g);
-  Rcpp::List ret = sf::CPL_read_wkb(Rcpp::List::create(raw), false, false);
-  ret.attr("crs") = crs;
-  ret.attr("class") = "sfc";
-  return ret;
-}
-
+// borrowed from sf source code, (c) Edzer Pebesma
 std::vector<OGRGeometry *> ogr_from_sfc2(Rcpp::List sfc) {
 
   Rcpp::List wkblst = sf::CPL_write_wkb(sfc, false);
@@ -86,7 +59,7 @@ std::vector<OGRGeometry *> ogr_from_sfc2(Rcpp::List sfc) {
   return g;
 }
 
-
+// borrowed from sf source code, (c) Edzer Pebesma
 Rcpp::List sfc_from_ogr2(std::vector<OGRGeometry *> g, bool destroy = false) {
   OGRwkbGeometryType type = wkbGeometryCollection;
   Rcpp::List lst(g.size());
@@ -106,6 +79,7 @@ Rcpp::List sfc_from_ogr2(std::vector<OGRGeometry *> g, bool destroy = false) {
   return ret;
 }
 
+// borrowed from sf source code, (c) Edzer Pebesma
 Rcpp::List CPL_sfc_from_wkt2(Rcpp::CharacterVector wkt) {
 	std::vector<OGRGeometry *> g(wkt.size());
 	OGRGeometryFactory f;

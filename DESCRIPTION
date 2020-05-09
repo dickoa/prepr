@@ -4,9 +4,7 @@ Title: Automatic repair of single GIS polygons
 Version: 0.1.9000
 Date: 2020-05-05
 Authors@R: person("Ahmadou", "Dicko", email = "mail@ahmadoudicko.com", role = c("aut", "cre"))
-Description: Automatically Repair broken GIS polygons and returns back a valid polygon
-      using the prepair Cpp, see
-      <https://github.com/tudelft3d/prepair>
+Description: Automatically repair broken GIS polygons using constrained triangulation and returns back a valid polygon.
 Depends: R (>= 3.5.0)
 License: GPL-3
 Encoding: UTF-8
@@ -24,6 +22,7 @@ Suggests:
     devtools,
     knitr,
     testthat,
+    lintr,
     covr
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
