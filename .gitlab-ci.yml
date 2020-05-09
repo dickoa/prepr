@@ -1,7 +1,7 @@
 image: rocker/r-base:latest
 
 variables:
-  CODECOV_TOKEN: "eed7371b-cf85-424b-a670-527296c06af2"
+  CODECOV_TOKEN: $CODECOV_TOKEN
   R_LIBS_USER: "$CI_PROJECT_DIR/ci/lib"
   CHECK_DIR: "$CI_PROJECT_DIR/ci/logs"
   BUILD_LOGS_DIR: "$CI_PROJECT_DIR/ci/logs/$CI_PROJECT_NAME.Rcheck"
