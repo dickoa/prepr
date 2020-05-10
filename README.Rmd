@@ -45,6 +45,8 @@ After installing all these libraries, you can now install the development versio
 ```{r, eval = FALSE}
 # install.packages("remotes")
 remotes::install_gitlab("dickoa/prepair")
+remotes::install_github("dickoa/prepair") ## mirror
+
 ```
 
 ## A quick tutorial

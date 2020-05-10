@@ -42,6 +42,7 @@ using the `remotes` R package with:
 ``` r
 # install.packages("remotes")
 remotes::install_gitlab("dickoa/prepair")
+remotes::install_github("dickoa/prepair") ## mirror
 ```
 
 ## A quick tutorial
