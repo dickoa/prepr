@@ -1,4 +1,4 @@
-image: rocker/r-base:latest
+image: rocker/tidyverse:lastest
 
 variables:
   CODECOV_TOKEN: $CODECOV_TOKEN
