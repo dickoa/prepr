@@ -233,30 +233,30 @@ st_is_valid(clc2_rpr)
 ``` r
 (bnch1 <- bench::mark(st_make_valid(clc1), st_prepair(clc1), check = FALSE))
 #> # A tibble: 2 x 6
-#>   expression               min  median `itr/sec` mem_alloc
-#>   <bch:expr>          <bch:tm> <bch:t>     <dbl> <bch:byt>
-#> 1 st_make_valid(clc1)    2.29s   2.29s     0.437        NA
-#> 2 st_prepair(clc1)    473.24ms 485.1ms     2.06         NA
+#>   expression               min   median `itr/sec` mem_alloc
+#>   <bch:expr>          <bch:tm> <bch:tm>     <dbl> <bch:byt>
+#> 1 st_make_valid(clc1)    2.19s    2.19s     0.456        NA
+#> 2 st_prepair(clc1)    459.44ms 463.18ms     2.16         NA
 #> # … with 1 more variable: `gc/sec` <dbl>
 summary(bnch1, relative = TRUE)
 #> # A tibble: 2 x 6
 #>   expression            min median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>          <dbl>  <dbl>     <dbl>     <dbl>    <dbl>
-#> 1 st_make_valid(clc1)  4.83   4.71      1           NA      NaN
-#> 2 st_prepair(clc1)     1      1         4.71        NA      NaN
+#> 1 st_make_valid(clc1)  4.77   4.73      1           NA      NaN
+#> 2 st_prepair(clc1)     1      1         4.73        NA      NaN
 
 (bnch2 <- bench::mark(st_make_valid(clc2), st_prepair(clc2), check = FALSE))
 #> # A tibble: 2 x 6
 #>   expression              min median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>          <bch:t> <bch:>     <dbl> <bch:byt>    <dbl>
-#> 1 st_make_valid(clc2)   796ms  796ms      1.26        NA        0
-#> 2 st_prepair(clc2)      185ms  186ms      5.36        NA        0
+#> 1 st_make_valid(clc2)   747ms  747ms      1.34        NA        0
+#> 2 st_prepair(clc2)      180ms  182ms      5.51        NA        0
 summary(bnch2, relative = TRUE)
 #> # A tibble: 2 x 6
 #>   expression            min median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>          <dbl>  <dbl>     <dbl>     <dbl>    <dbl>
-#> 1 st_make_valid(clc2)  4.30   4.28      1           NA      NaN
-#> 2 st_prepair(clc2)     1      1         4.27        NA      NaN
+#> 1 st_make_valid(clc2)  4.15   4.11      1           NA      NaN
+#> 2 st_prepair(clc2)     1      1         4.12        NA      NaN
 ```
 
 You also have cases where it’s slower to `sf::st_make_valid`, let’s use
@@ -308,14 +308,14 @@ plot(st_geometry(agb), main = "2015 Agriculture baseline", col = 'lightblue', ax
 #> # A tibble: 2 x 6
 #>   expression             min  median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>         <bch:t> <bch:t>     <dbl> <bch:byt>    <dbl>
-#> 1 st_make_valid(agb)   1.78s   1.78s     0.561        NA    0.561
-#> 2 st_prepair(agb)      4.39s   4.39s     0.228        NA    0.456
+#> 1 st_make_valid(agb)   1.61s   1.61s     0.619        NA    1.24 
+#> 2 st_prepair(agb)      3.88s   3.88s     0.258        NA    0.258
 summary(bnch3, relative = TRUE)
 #> Warning: Some expressions had a GC in every iteration; so
 #> filtering is disabled.
 #> # A tibble: 2 x 6
 #>   expression           min median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>         <dbl>  <dbl>     <dbl>     <dbl>    <dbl>
-#> 1 st_make_valid(agb)  1      1         2.46        NA     1.23
-#> 2 st_prepair(agb)     2.46   2.46      1           NA     1
+#> 1 st_make_valid(agb)  1      1         2.40        NA     4.81
+#> 2 st_prepair(agb)     2.40   2.40      1           NA     1
 ```
