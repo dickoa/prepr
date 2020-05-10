@@ -6,7 +6,7 @@
 \alias{prepair-package}
 \title{A package for repairing broken GIS polygons}
 \description{
-It's based on the prepair Cpp library, more info at \url{https://github.com/tudelft3d/prepair}
+It is based on the prepair Cpp library, more info at \url{https://github.com/tudelft3d/prepair}
 }
 \seealso{
 Useful links:
