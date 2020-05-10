@@ -1,3 +1,5 @@
+// [[Rcpp::depends(BH)]]
+
 #include "PolygonRepair.h"
 
 #include <Rcpp.h>
