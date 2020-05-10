@@ -17,6 +17,10 @@ src/*.dll
 vignettes/*.html
 vignettes/*.pdf
 
+#
+README.html
+README_cache/*
+
 src/Makevars
 config.log
 config.status

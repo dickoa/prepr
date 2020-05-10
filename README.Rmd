@@ -9,7 +9,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%"
+  out.width = "100%",
+  dev = "svg"
 )
 ```
 
@@ -34,14 +35,22 @@ The `prepair` Cpp library need these two libraries to compile:
 - [`CGAL`](https://www.cgal.org/)
 - [`GDAL`](https://gdal.org/)
 
-After installing these two libraries, you can now install the development version of `prepair` R package from [Gitlab](https://gitlab.com/dickoa/prepair) using the `remotes` R package with:
+The R package `prepair` solves the CGAL dependencies by using the [`cgal4headers`](https://gitlab.com/dickoa/cgal4headers) that expose CGAL 4 headers.
+We use [`rwinlib`](https://github.com/rwinlib) to provide `GDAL` on Windows in order to build this package from source.
+
+These two optional libraries are disabled by default in Windows but required if you want to build the Linux/OS X version of the package.
+
+- [`GMP`](https://gmplib.org/)
+- [`MPFR`](https://www.mpfr.org/)
+
+After installing all the system requirements, you can now install the development version of the `prepair` R package from [Gitlab](https://gitlab.com/dickoa/prepair) using the `remotes` R package with:
 
 ```{r, eval = FALSE}
 # install.packages("remotes")
 remotes::install_gitlab("dickoa/prepair")
 ```
 
-## A quick Example
+## A quick tutorial
 
 This is a basic example which shows you how to solve a common problem:
 
@@ -127,4 +136,38 @@ st_as_text(p77)
 par(mfrow = c(1, 2))
 plot(p7, main = "RAW")
 plot(p77, main = "Repaired")
+```
+
+## A exemple with a real dataset
+
+### Reading the data
+
+```{r read_data, cache = TRUE}
+(clc1 <- read_sf("https://github.com/tudelft3d/prepair/raw/master/data/CLC2006_180927.geojson"))
+(clc2 <- read_sf("https://github.com/tudelft3d/prepair/raw/master/data/CLC2006_2018418.geojson"))
+par(mfrow = c(1, 2))
+plot(st_geometry(clc1), main = "CLC2006_180927", col = 'lightblue', axes = TRUE, graticule = TRUE, lwd = 0.2, cex.axis = 0.5)
+plot(st_geometry(clc2), main = "CLC2006_2018418", col = "lightblue", axes = TRUE, graticule = TRUE, lwd = 0.2, cex.axis = 0.5)
+```
+
+### Check if it's valid and repair it
+
+```{r clean_it, cache = TRUE}
+st_is_valid(clc1, reason = TRUE)
+(clc1_rpr <- st_prepair(clc1))
+st_is_valid(clc1_rpr)
+
+st_is_valid(clc2, reason = TRUE)
+(clc2_rpr <- st_prepair(clc2))
+st_is_valid(clc2_rpr)
+```
+
+### How fast is `st_prepair` ?
+
+```{r bench, cache = TRUE}
+(bnch1 <- bench::mark(st_make_valid(clc1), st_prepair(clc1), check = FALSE))
+summary(bnch1, relative = TRUE)
+
+(bnch2 <- bench::mark(st_make_valid(clc2), st_prepair(clc2), check = FALSE))
+summary(bnch2, relative = TRUE)
 ```
