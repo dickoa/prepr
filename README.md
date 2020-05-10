@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# prepair
+# prepair <img src="man/figures/hex-prepair.png" align="right" height="139" />
 
 <!-- badges: start -->
 
@@ -9,10 +9,9 @@
 Status](https://gitlab.com/dickoa/prepair/badges/master/pipeline.svg)](https://gitlab.com/dickoa/prepair/pipelines)
 [![Codecov Code
 Coverage](https://codecov.io/gl/dickoa/prepair/branch/master/graph/badge.svg)](https://codecov.io/gl/dickoa/prepair)
-[![](http://www.r-pkg.org/badges/version/prepair)](http://www.r-pkg.org/pkg/prepair)
+[![CRAN
+status](http://www.r-pkg.org/badges/version/prepair)](http://www.r-pkg.org/pkg/prepair)
 <!-- badges: end -->
-
-<img src="https://gitlab.com/dickoa/prepair/-/raw/master/man/figures/hex-prepair.png" width="250px" style="display: block; margin: auto auto auto 0;" />
 
 An R package to repair broken GIS polygons using the
 [`prepair`](https://github.com/tudelft3d/prepair) Cpp library.
@@ -29,16 +28,16 @@ The R package `prepair` solves the CGAL dependencies by using the
 CGAL 4 headers. We use [`rwinlib`](https://github.com/rwinlib) to
 provide `GDAL` on Windows in order to build this package from source.
 
-These two optional libraries are disabled by default in Windows but
-required if you want to build the Linux/OS X version of the package.
+`prepair` can also use these optional libraries:
 
   - [`GMP`](https://gmplib.org/)
   - [`MPFR`](https://www.mpfr.org/)
 
-After installing all the system requirements, you can now install the
-development version of the `prepair` R package from
-[Gitlab](https://gitlab.com/dickoa/prepair) using the `remotes` R
-package with:
+They are disabled by default on Windows but required if you want to
+build the package in a Linux/OS X environment. After installing all
+these libraries, you can now install the development version of the
+`prepair` R package from [Gitlab](https://gitlab.com/dickoa/prepair)
+using the `remotes` R package with:
 
 ``` r
 # install.packages("remotes")
@@ -228,31 +227,95 @@ st_is_valid(clc2_rpr)
 
 ### How fast is `st_prepair` ?
 
+`prepair::st_prepair` is fast and can be in some cases faster than
+`sf::st_make_valid`
+
 ``` r
 (bnch1 <- bench::mark(st_make_valid(clc1), st_prepair(clc1), check = FALSE))
 #> # A tibble: 2 x 6
-#>   expression               min   median `itr/sec` mem_alloc
-#>   <bch:expr>          <bch:tm> <bch:tm>     <dbl> <bch:byt>
-#> 1 st_make_valid(clc1)    2.25s    2.25s     0.445        NA
-#> 2 st_prepair(clc1)    470.03ms 471.38ms     2.12         NA
+#>   expression               min  median `itr/sec` mem_alloc
+#>   <bch:expr>          <bch:tm> <bch:t>     <dbl> <bch:byt>
+#> 1 st_make_valid(clc1)    2.29s   2.29s     0.437        NA
+#> 2 st_prepair(clc1)    473.24ms 485.1ms     2.06         NA
 #> # … with 1 more variable: `gc/sec` <dbl>
 summary(bnch1, relative = TRUE)
 #> # A tibble: 2 x 6
 #>   expression            min median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>          <dbl>  <dbl>     <dbl>     <dbl>    <dbl>
-#> 1 st_make_valid(clc1)  4.78   4.77      1           NA      NaN
-#> 2 st_prepair(clc1)     1      1         4.77        NA      NaN
+#> 1 st_make_valid(clc1)  4.83   4.71      1           NA      NaN
+#> 2 st_prepair(clc1)     1      1         4.71        NA      NaN
 
 (bnch2 <- bench::mark(st_make_valid(clc2), st_prepair(clc2), check = FALSE))
 #> # A tibble: 2 x 6
 #>   expression              min median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>          <bch:t> <bch:>     <dbl> <bch:byt>    <dbl>
-#> 1 st_make_valid(clc2)   747ms  747ms      1.34        NA     0   
-#> 2 st_prepair(clc2)      187ms  187ms      5.34        NA     2.67
+#> 1 st_make_valid(clc2)   796ms  796ms      1.26        NA        0
+#> 2 st_prepair(clc2)      185ms  186ms      5.36        NA        0
 summary(bnch2, relative = TRUE)
 #> # A tibble: 2 x 6
 #>   expression            min median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>          <dbl>  <dbl>     <dbl>     <dbl>    <dbl>
-#> 1 st_make_valid(clc2)  4.00   3.99      1           NA      NaN
-#> 2 st_prepair(clc2)     1      1         3.99        NA      Inf
+#> 1 st_make_valid(clc2)  4.30   4.28      1           NA      NaN
+#> 2 st_prepair(clc2)     1      1         4.27        NA      NaN
+```
+
+You also have cases where it’s slower to `sf::st_make_valid`, let’s use
+this data from a [closed
+issue](https://github.com/r-spatial/sf/issues/1280) in the `sf` R
+package.
+
+``` r
+## need vsicurl
+(agb <- read_sf("/vsicurl/http://files.hawaii.gov/dbedt/op/gis/data/2015AgBaseline.shp.zip"))
+#> Simple feature collection with 5024 features and 6 fields
+#> geometry type:  MULTIPOLYGON
+#> dimension:      XY
+#> bbox:           xmin: 419564.3 ymin: 2095890 xmax: 938457.6 ymax: 2457686
+#> projected CRS:  NAD83 / UTM zone 4N
+#> # A tibble: 5,024 x 7
+#>    OBJECTID CropCatego Island Acrage Shape_Leng Shape_Area
+#>       <dbl> <chr>      <chr>   <dbl>      <dbl>      <dbl>
+#>  1     4529 Commercia… Kauai  2.73e2      6301.   1104891.
+#>  2     4530 Coffee     Kauai  7.44e0      1254.     30103.
+#>  3     4531 Coffee     Kauai  4.65e0       772.     18813.
+#>  4     4532 Coffee     Kauai  1.13e3     16248.   4572534.
+#>  5     4533 Coffee     Kauai  3.49e0       858.     14106.
+#>  6     4534 Coffee     Kauai  5.21e2      7868.   2106938.
+#>  7     4535 Coffee     Kauai  7.16e2     11290.   2896255.
+#>  8     4536 Coffee     Kauai  1.33e2      3705.    539524.
+#>  9     4537 Flowers /… Kauai  3.52e1      1871.    142623.
+#> 10     4538 Coffee     Kauai  9.69e1      2930.    391962.
+#> # … with 5,014 more rows, and 1 more variable:
+#> #   geometry <MULTIPOLYGON [m]>
+all(st_is_valid(agb))
+#> [1] FALSE
+all(st_is_valid(st_make_valid(agb)))
+#> [1] TRUE
+all(st_is_valid(st_prepair(agb)))
+#> [1] TRUE
+
+plot(st_geometry(agb), main = "2015 Agriculture baseline", col = 'lightblue', axes = TRUE, graticule = TRUE, lwd = 0.2, cex.axis = 0.5)
+```
+
+<img src="man/figures/README-new_data-1.svg" width="100%" />
+
+`sf::st_make_valid` is faster with this data.
+
+``` r
+(bnch3 <- bench::mark(st_make_valid(agb), st_prepair(agb), check = FALSE))
+#> Warning: Some expressions had a GC in every iteration; so
+#> filtering is disabled.
+#> # A tibble: 2 x 6
+#>   expression             min  median `itr/sec` mem_alloc `gc/sec`
+#>   <bch:expr>         <bch:t> <bch:t>     <dbl> <bch:byt>    <dbl>
+#> 1 st_make_valid(agb)   1.78s   1.78s     0.561        NA    0.561
+#> 2 st_prepair(agb)      4.39s   4.39s     0.228        NA    0.456
+summary(bnch3, relative = TRUE)
+#> Warning: Some expressions had a GC in every iteration; so
+#> filtering is disabled.
+#> # A tibble: 2 x 6
+#>   expression           min median `itr/sec` mem_alloc `gc/sec`
+#>   <bch:expr>         <dbl>  <dbl>     <dbl>     <dbl>    <dbl>
+#> 1 st_make_valid(agb)  1      1         2.46        NA     1.23
+#> 2 st_prepair(agb)     2.46   2.46      1           NA     1
 ```

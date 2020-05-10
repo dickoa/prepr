@@ -14,17 +14,14 @@ knitr::opts_chunk$set(
 )
 ```
 
-# prepair
+# prepair <img src="man/figures/hex-prepair.png" align="right" height="139" />
 
 <!-- badges: start -->
 [![GitLab CI Build Status](https://gitlab.com/dickoa/prepair/badges/master/pipeline.svg)](https://gitlab.com/dickoa/prepair/pipelines)
 [![Codecov Code Coverage](https://codecov.io/gl/dickoa/prepair/branch/master/graph/badge.svg)](https://codecov.io/gl/dickoa/prepair)
-[![](http://www.r-pkg.org/badges/version/prepair)](http://www.r-pkg.org/pkg/prepair)
+[![CRAN status](http://www.r-pkg.org/badges/version/prepair)](http://www.r-pkg.org/pkg/prepair)
 <!-- badges: end -->
 
-```{r, echo=FALSE, out.width="250px", eval=TRUE, fig.align="left"}
-knitr::include_graphics("https://gitlab.com/dickoa/prepair/-/raw/master/man/figures/hex-prepair.png")
-```
 
 An R package to repair broken GIS polygons using the [`prepair`](https://github.com/tudelft3d/prepair) Cpp library.
 
@@ -38,12 +35,13 @@ The `prepair` Cpp library need these two libraries to compile:
 The R package `prepair` solves the CGAL dependencies by using the [`cgal4headers`](https://gitlab.com/dickoa/cgal4headers) that expose CGAL 4 headers.
 We use [`rwinlib`](https://github.com/rwinlib) to provide `GDAL` on Windows in order to build this package from source.
 
-These two optional libraries are disabled by default in Windows but required if you want to build the Linux/OS X version of the package.
+`prepair` can also use these optional libraries:
 
 - [`GMP`](https://gmplib.org/)
 - [`MPFR`](https://www.mpfr.org/)
 
-After installing all the system requirements, you can now install the development version of the `prepair` R package from [Gitlab](https://gitlab.com/dickoa/prepair) using the `remotes` R package with:
+They are disabled by default on Windows but required if you want to build the package in a Linux/OS X environment.
+After installing all these libraries, you can now install the development version of the `prepair` R package from [Gitlab](https://gitlab.com/dickoa/prepair) using the `remotes` R package with:
 
 ```{r, eval = FALSE}
 # install.packages("remotes")
@@ -164,6 +162,8 @@ st_is_valid(clc2_rpr)
 
 ### How fast is `st_prepair` ?
 
+`prepair::st_prepair` is fast and can be in some cases faster than `sf::st_make_valid`
+
 ```{r bench, cache = TRUE}
 (bnch1 <- bench::mark(st_make_valid(clc1), st_prepair(clc1), check = FALSE))
 summary(bnch1, relative = TRUE)
@@ -171,3 +171,22 @@ summary(bnch1, relative = TRUE)
 (bnch2 <- bench::mark(st_make_valid(clc2), st_prepair(clc2), check = FALSE))
 summary(bnch2, relative = TRUE)
 ```
+
+You also have cases where it's slower to `sf::st_make_valid`, let's use this data from a [closed issue](https://github.com/r-spatial/sf/issues/1280) in the `sf` R package.
+
+```{r new_data, cache = TRUE}
+## need vsicurl
+(agb <- read_sf("/vsicurl/http://files.hawaii.gov/dbedt/op/gis/data/2015AgBaseline.shp.zip"))
+all(st_is_valid(agb))
+all(st_is_valid(st_make_valid(agb)))
+all(st_is_valid(st_prepair(agb)))
+
+plot(st_geometry(agb), main = "2015 Agriculture baseline", col = 'lightblue', axes = TRUE, graticule = TRUE, lwd = 0.2, cex.axis = 0.5)
+```
+
+`sf::st_make_valid` is faster with this data.
+
+
+```{r bench2, cache = TRUE}
+(bnch3 <- bench::mark(st_make_valid(agb), st_prepair(agb), check = FALSE))
+summary(bnch3, relative = TRUE)
