@@ -1,3 +1,3 @@
 #!/bin/sh
-rm -fr src/Makevars config.log config.status autom4te.cache src/*.o src/*.so
+rm -fr src/Makevars config.log config.status autom4te.cache src/*.o src/*.so src/autom4te.cache
 rm -fr Rplots.pdf */Rplots.pdf .Rhistory src/.Rhistory

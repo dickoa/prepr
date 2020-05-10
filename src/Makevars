@@ -1,3 +1,0 @@
-CXX_STD = CXX11
-PKG_LIBS = -L/usr/lib -lgdal -lgmp -lmpfr -lboost_program_options
-PKG_CXXFLAGS = -I/usr/include -DCGAL_HEADER_ONLY=1 -DBOOST_ALL_NO_LIB -DBOOST_PROGRAM_OPTIONS_DYN_LINK -DRCPP_NO_RTTI -DCGAL_USE_GMP -DCGAL_USE_MPFR -frounding-math

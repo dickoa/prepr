@@ -79,26 +79,10 @@ Rcpp::List sfc_from_ogr2(std::vector<OGRGeometry *> g, bool destroy = false) {
   return ret;
 }
 
-// borrowed from sf source code, (c) Edzer Pebesma
-Rcpp::List CPL_sfc_from_wkt2(Rcpp::CharacterVector wkt) {
-	std::vector<OGRGeometry *> g(wkt.size());
-	OGRGeometryFactory f;
-	for (int i = 0; i < wkt.size(); i++) {
-		char *wkt_str = wkt(i);
-#if GDAL_VERSION_MAJOR <= 2 && GDAL_VERSION_MINOR <= 2
-		handle_error(f.createFromWkt(&wkt_str, NULL, &(g[i])));
-#else
-		handle_error(f.createFromWkt( (const char*) wkt_str, NULL, &(g[i])));
-#endif
-	}
-	return sfc_from_ogr2(g, true);
-}
-
 // [[Rcpp::export]]
 Rcpp::List CPL_prepair(Rcpp::List sfc, double min_area, bool point_set) {
 
   std::vector<OGRGeometry *> input = ogr_from_sfc2(sfc);
-  Rcpp::CharacterVector wkt_v(input.size());
   PolygonRepair prepair;
   OGRMultiPolygon *out_polygons;
 
@@ -114,9 +98,8 @@ Rcpp::List CPL_prepair(Rcpp::List sfc, double min_area, bool point_set) {
       prepair.removeSmallPolygons(out_polygons, min_area);
     }
 
-    char *output_wkt;
-    out_polygons->exportToWkt(&output_wkt);
-    wkt_v[i] = output_wkt;
+    input[i] = out_polygons;
   }
-  return CPL_sfc_from_wkt2(wkt_v);
+
+  return sfc_from_ogr2(input);
 }
