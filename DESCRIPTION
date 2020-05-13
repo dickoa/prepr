@@ -14,6 +14,7 @@ NeedsCompilation: yes
 SystemRequirements: gmp (>= 4.2.3), mpfr (>= 3.0.0)
 LinkingTo:
     Rcpp,
+    BH,
     sf (>= 0.6-0),
     cgal4h,
 Imports:
