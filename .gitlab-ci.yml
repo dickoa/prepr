@@ -17,6 +17,7 @@ pages:
 
   after_script:
     - Rscript -e 'covr::package_coverage()'
+    - Rscript -e 'covr::codecov()'
 
   artifacts:
     paths:

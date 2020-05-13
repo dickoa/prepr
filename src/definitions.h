@@ -27,7 +27,6 @@
 //#define COORDS_3D
 
 #ifndef DEFINITIONS_H
-// [[Rcpp::depends(cgal4headers)]]
 
 #define DEFINITIONS_H
 

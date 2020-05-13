@@ -15,7 +15,7 @@ SystemRequirements: gmp (>= 4.2.3), mpfr (>= 3.0.0)
 LinkingTo:
     Rcpp,
     sf (>= 0.6-0),
-    cgal4headers,
+    cgal4h,
 Imports:
     Rcpp,
     sf (>= 0.9-3)
@@ -29,4 +29,4 @@ Suggests:
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
-Remotes: gitlab::dickoa/cgal4headers
+Remotes: gitlab::dickoa/cgal4h

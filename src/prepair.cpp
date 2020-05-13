@@ -2,7 +2,7 @@
 
 #include <Rcpp.h>
 
-// [[Rcpp::depends(sf)]]
+// [[Rcpp::depends(cgal4h, sf)]]
 #include <sf.h>
 
 // borrowed from sf source code, (c) Edzer Pebesma
