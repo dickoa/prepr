@@ -15,7 +15,7 @@ PKG_LIBS = \
 	-lcrypto -lcrypt32 -lws2_32
 
 
-PKG_CXXFLAGS = -I$(RWINLIB)/include/gdal-3.0.4 -DCGAL_DISABLE_GMP -DCGAL_HEADER_ONLY=1 -DRCPP_NO_RTTI -frounding-math
+PKG_CXXFLAGS = -I$(RWINLIB)/include/gdal-3.0.4 -DCGAL_DISABLE_GMP -DCGAL_HEADER_ONLY=1 -DBOOST_NO_AUTO_PTR -DRCPP_NO_RTTI -frounding-math
 CXX_STD = CXX11
 
 all: clean winlibs
