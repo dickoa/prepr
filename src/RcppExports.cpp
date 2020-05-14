@@ -5,22 +5,34 @@
 
 using namespace Rcpp;
 
-// CPL_prepair
-Rcpp::List CPL_prepair(Rcpp::List sfc, double min_area, bool point_set);
-RcppExport SEXP _prepair_CPL_prepair(SEXP sfcSEXP, SEXP min_areaSEXP, SEXP point_setSEXP) {
+// CPL_prepair_oddeven
+Rcpp::List CPL_prepair_oddeven(Rcpp::List sfc, double min_area);
+RcppExport SEXP _prepair_CPL_prepair_oddeven(SEXP sfcSEXP, SEXP min_areaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::List >::type sfc(sfcSEXP);
     Rcpp::traits::input_parameter< double >::type min_area(min_areaSEXP);
-    Rcpp::traits::input_parameter< bool >::type point_set(point_setSEXP);
-    rcpp_result_gen = Rcpp::wrap(CPL_prepair(sfc, min_area, point_set));
+    rcpp_result_gen = Rcpp::wrap(CPL_prepair_oddeven(sfc, min_area));
+    return rcpp_result_gen;
+END_RCPP
+}
+// CPL_prepair_setdiff
+Rcpp::List CPL_prepair_setdiff(Rcpp::List sfc, double min_area);
+RcppExport SEXP _prepair_CPL_prepair_setdiff(SEXP sfcSEXP, SEXP min_areaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::List >::type sfc(sfcSEXP);
+    Rcpp::traits::input_parameter< double >::type min_area(min_areaSEXP);
+    rcpp_result_gen = Rcpp::wrap(CPL_prepair_setdiff(sfc, min_area));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_prepair_CPL_prepair", (DL_FUNC) &_prepair_CPL_prepair, 3},
+    {"_prepair_CPL_prepair_oddeven", (DL_FUNC) &_prepair_CPL_prepair_oddeven, 2},
+    {"_prepair_CPL_prepair_setdiff", (DL_FUNC) &_prepair_CPL_prepair_setdiff, 2},
     {NULL, NULL, 0}
 };
 

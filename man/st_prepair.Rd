@@ -4,18 +4,22 @@
 \alias{st_prepair}
 \title{Polygon repair}
 \usage{
-st_prepair(x, min_area = 0, point_set = FALSE)
+st_prepair(x, min_area = 0, algorithm = c("oddeven", "setdiff"))
 }
 \arguments{
 \item{x}{object of class \code{sf}, \code{sfc} or \code{sfg}}
 
 \item{min_area}{mininum area to keep in output}
 
-\item{point_set}{if TRUE use the point set difference algorithm for the rings (outer-inner)
-by default (point_set = FALSE) the odd-even algorithm is used}
+\item{algorithm}{character, algorithm used to repair the polygon. oddeven (default) or setdiff.
+More on these two algorithm details.}
 }
 \description{
 Automatically repair single polygons (according to the OGC Simple Features / ISO19107 rules) using a constrained triangulation approach.
+}
+\details{
+oddeven: An extension of the odd-even algorithm to handle GIS polygons containing inner rings and degeneracies;
+setdiff: one where we follow a point set difference rule for the rings (outer - inner).
 }
 \examples{
 library(sf)
@@ -23,6 +27,11 @@ p1 <- st_as_sfc("POLYGON((0 0, 0 10, 10 0, 10 10, 0 0))")
 st_is_valid(p1)
 st_prepair(p1)
 st_is_valid(st_prepair(p1))
+}
+\references{
+Ledoux, H., Arroyo Ohori, K., and Meijers, M. (2014).
+A triangulation-based approach to automatically repair GIS polygons.
+Computers & Geosciences 66:121–131.
 }
 \seealso{
 \code{sf::st_make_valid} for another approach at fixing broken polygons

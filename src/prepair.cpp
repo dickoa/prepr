@@ -80,7 +80,7 @@ Rcpp::List sfc_from_ogr2(std::vector<OGRGeometry *> g, bool destroy = false) {
 }
 
 // [[Rcpp::export]]
-Rcpp::List CPL_prepair(Rcpp::List sfc, double min_area, bool point_set) {
+Rcpp::List CPL_prepair_oddeven(Rcpp::List sfc, double min_area) {
 
   std::vector<OGRGeometry *> input = ogr_from_sfc2(sfc);
   PolygonRepair prepair;
@@ -88,11 +88,28 @@ Rcpp::List CPL_prepair(Rcpp::List sfc, double min_area, bool point_set) {
 
   for (size_t i = 0; i < input.size(); i++) {
 
-    if (point_set) {
-      out_polygons = prepair.repairPointSet(input[i], 0);
-    } else {
-      out_polygons = prepair.repairOddEven(input[i], 0);
+    out_polygons = prepair.repairOddEven(input[i], 0);
+
+    if (min_area > 0) {
+      prepair.removeSmallPolygons(out_polygons, min_area);
     }
+
+    input[i] = out_polygons;
+  }
+
+  return sfc_from_ogr2(input);
+}
+
+// [[Rcpp::export]]
+Rcpp::List CPL_prepair_setdiff(Rcpp::List sfc, double min_area) {
+
+  std::vector<OGRGeometry *> input = ogr_from_sfc2(sfc);
+  PolygonRepair prepair;
+  OGRMultiPolygon *out_polygons;
+
+  for (size_t i = 0; i < input.size(); i++) {
+
+    out_polygons = prepair.repairPointSet(input[i], 0);
 
     if (min_area > 0) {
       prepair.removeSmallPolygons(out_polygons, min_area);

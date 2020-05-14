@@ -24,9 +24,12 @@ The `prepair` Cpp library need these two libraries to compile:
   - [`GDAL`](https://gdal.org/)
 
 The R package `prepair` solves the CGAL dependencies by using the
-[`cgal4headers`](https://gitlab.com/dickoa/cgal4headers) that expose
-CGAL 4 headers. We use [`rwinlib`](https://github.com/rwinlib) to
-provide `GDAL` on Windows in order to build this package from source.
+[`cgal4h`](https://gitlab.com/dickoa/cgal4h) that expose CGAL 4 headers.
+We use [`rwinlib`](https://github.com/rwinlib) to provide `GDAL` on
+Windows in order to build this package from source. You will need the
+latest version of
+[`rtools`](https://cran.r-project.org/bin/windows/Rtools/) in order to
+build the source code on Windows.
 
 `prepair` can also use these optional libraries:
 

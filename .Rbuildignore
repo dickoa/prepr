@@ -36,3 +36,5 @@ _dev\.R$
 ^azure-pipelines\.yml$
 ^[.]github$
 ^codecov\.yml$
+^README_cache$
+^man/figures/*

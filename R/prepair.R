@@ -4,8 +4,18 @@
 #'
 #' @param x object of class \code{sf}, \code{sfc} or \code{sfg}
 #' @param min_area mininum area to keep in output
-#' @param point_set if TRUE use the point set difference algorithm for the rings (outer-inner)
-#' by default (point_set = FALSE) the odd-even algorithm is used
+#' @param algorithm character, algorithm used to repair the polygon. oddeven (default) or setdiff.
+#' More on these two algorithm details.
+#'
+#' @details
+#' oddeven: An extension of the odd-even algorithm to handle GIS polygons containing inner rings and degeneracies;
+#' setdiff: one where we follow a point set difference rule for the rings (outer - inner).
+#'
+#'
+#' @references
+#' Ledoux, H., Arroyo Ohori, K., and Meijers, M. (2014).
+#' A triangulation-based approach to automatically repair GIS polygons.
+#' Computers & Geosciences 66:121–131.
 #'
 #' @examples
 #' library(sf)
@@ -18,24 +28,27 @@
 #' @importFrom sf st_geometry st_set_geometry st_geometry_type st_geometrycollection st_crs st_sfc
 #'
 #' @export
-st_prepair <- function(x, min_area = 0, point_set = FALSE) {
+st_prepair <- function(x, min_area = 0, algorithm = c("oddeven", "setdiff")) {
   UseMethod("st_prepair")
 }
 
 #' @export
-st_prepair.sfc <- function(x, min_area = 0, point_set = FALSE) {
+st_prepair.sfc <- function(x, min_area = 0, algorithm = c("oddeven", "setdiff")) {
   assert_polygon_type(x)
-  st_sfc(CPL_prepair(x, min_area, point_set), crs = st_crs(x))
+  algorithm  <- match.arg(algorithm)
+  switch(algorithm,
+         oddeven = st_sfc(CPL_prepair_oddeven(x, min_area), crs = st_crs(x)),
+         setdiff = st_sfc(CPL_prepair_setdiff(x, min_area), crs = st_crs(x)))
 }
 
 #' @export
-st_prepair.sf <- function(x, min_area = 0, point_set = FALSE) {
-  sf::st_set_geometry(x, st_prepair(sf::st_geometry(x), min_area, point_set))
+st_prepair.sf <- function(x, min_area = 0, algorithm = c("oddeven", "setdiff")) {
+  sf::st_set_geometry(x, st_prepair(sf::st_geometry(x), min_area, algorithm))
 }
 
 #' @export
-st_prepair.sfg <- function(x, min_area = 0, point_set = FALSE) {
-  first_sfg_from_sfc(st_prepair(sf::st_sfc(x), min_area, point_set))
+st_prepair.sfg <- function(x, min_area = 0, algorithm = c("oddeven", "setdiff")) {
+  first_sfg_from_sfc(st_prepair(sf::st_sfc(x), min_area, algorithm))
 }
 
 #' @noRd
