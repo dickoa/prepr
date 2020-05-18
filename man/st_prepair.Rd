@@ -4,15 +4,15 @@
 \alias{st_prepair}
 \title{Polygon repair}
 \usage{
-st_prepair(x, min_area = 0, algorithm = c("oddeven", "setdiff"))
+st_prepair(x, algorithm = c("oddeven", "setdiff"), min_area = 0)
 }
 \arguments{
 \item{x}{object of class \code{sf}, \code{sfc} or \code{sfg}}
 
-\item{min_area}{mininum area to keep in output}
-
 \item{algorithm}{character, algorithm used to repair the polygon. oddeven (default) or setdiff.
 More on these two algorithm details.}
+
+\item{min_area}{mininum area to keep in output}
 }
 \description{
 Automatically repair single polygons (according to the OGC Simple Features / ISO19107 rules) using a constrained triangulation approach.

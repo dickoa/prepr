@@ -26,3 +26,8 @@ test_that("st_prepair can remove area small than min_area", {
   p <- st_as_sfc("POLYGON((0 0, 10 0, 10 11, 11 10, 0 10))")
   expect_equal(st_prepair(p, min_area = 1), st_as_sfc("MULTIPOLYGON (((10 0,10 10,0 10,0 0,10 0)))"))
 })
+
+test_that("algorithm st_prepair setdiff can give different results than oddeven", {
+  p <- st_as_sfc("POLYGON((0 0, 10 0, 10 10, 0 10, 0 0), (2 8, 5 8, 5 2, 2 2, 2 8), (3 3, 4 3, 3 4, 3 3))")
+  expect_equal(st_prepair(p, algorithm = "setdiff"), st_as_sfc("MULTIPOLYGON (((10 10, 0 10, 0 0, 10 0, 10 10), (5 2, 2 2, 2 8, 5 8, 5 2)))"))
+})

@@ -3,10 +3,10 @@
 #' Automatically repair single polygons (according to the OGC Simple Features / ISO19107 rules) using a constrained triangulation approach.
 #'
 #' @param x object of class \code{sf}, \code{sfc} or \code{sfg}
-#' @param min_area mininum area to keep in output
 #' @param algorithm character, algorithm used to repair the polygon. oddeven (default) or setdiff.
 #' More on these two algorithm details.
-#'
+#' @param min_area mininum area to keep in output
+
 #' @details
 #' oddeven: An extension of the odd-even algorithm to handle GIS polygons containing inner rings and degeneracies;
 #' setdiff: one where we follow a point set difference rule for the rings (outer - inner).
@@ -28,12 +28,12 @@
 #' @importFrom sf st_geometry st_set_geometry st_geometry_type st_geometrycollection st_crs st_sfc
 #'
 #' @export
-st_prepair <- function(x, min_area = 0, algorithm = c("oddeven", "setdiff")) {
+st_prepair <- function(x, algorithm = c("oddeven", "setdiff"), min_area = 0) {
   UseMethod("st_prepair")
 }
 
 #' @export
-st_prepair.sfc <- function(x, min_area = 0, algorithm = c("oddeven", "setdiff")) {
+st_prepair.sfc <- function(x, algorithm = c("oddeven", "setdiff"), min_area = 0) {
   assert_2d_polygon_type(x)
   algorithm  <- match.arg(algorithm)
   switch(algorithm,
@@ -42,13 +42,13 @@ st_prepair.sfc <- function(x, min_area = 0, algorithm = c("oddeven", "setdiff"))
 }
 
 #' @export
-st_prepair.sf <- function(x, min_area = 0, algorithm = c("oddeven", "setdiff")) {
-  sf::st_set_geometry(x, st_prepair(sf::st_geometry(x), min_area, algorithm))
+st_prepair.sf <- function(x, algorithm = c("oddeven", "setdiff"), min_area = 0) {
+  sf::st_set_geometry(x, st_prepair(sf::st_geometry(x), algorithm, min_area))
 }
 
 #' @export
-st_prepair.sfg <- function(x, min_area = 0, algorithm = c("oddeven", "setdiff")) {
-  first_sfg_from_sfc(st_prepair(sf::st_sfc(x), min_area, algorithm))
+st_prepair.sfg <- function(x, algorithm = c("oddeven", "setdiff"), min_area = 0) {
+  first_sfg_from_sfc(st_prepair(sf::st_sfc(x), algorithm, min_area))
 }
 
 #' @noRd
