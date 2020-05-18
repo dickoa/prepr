@@ -1,4 +1,4 @@
-Package: prepair
+Package: prepr
 Type: Package
 Title: Automatic repair of single GIS polygons
 Version: 0.1.9000
@@ -8,8 +8,8 @@ Description: Automatically repair broken GIS polygons using constrained triangul
 Depends: R (>= 3.5.0)
 License: GPL-3
 Encoding: UTF-8
-URL: https://gitlab.com/dickoa/prepair
-BugReports: https://gitlab.com/dickoa/prepair/issues
+URL: https://gitlab.com/dickoa/prepr
+BugReports: https://gitlab.com/dickoa/prepr/issues
 NeedsCompilation: yes
 SystemRequirements: gmp (>= 4.2.3), mpfr (>= 3.0.0)
 LinkingTo:

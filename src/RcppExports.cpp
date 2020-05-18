@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // CPL_prepair_oddeven
 Rcpp::List CPL_prepair_oddeven(Rcpp::List sfc, double min_area);
-RcppExport SEXP _prepair_CPL_prepair_oddeven(SEXP sfcSEXP, SEXP min_areaSEXP) {
+RcppExport SEXP _prepr_CPL_prepair_oddeven(SEXP sfcSEXP, SEXP min_areaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -19,7 +19,7 @@ END_RCPP
 }
 // CPL_prepair_setdiff
 Rcpp::List CPL_prepair_setdiff(Rcpp::List sfc, double min_area);
-RcppExport SEXP _prepair_CPL_prepair_setdiff(SEXP sfcSEXP, SEXP min_areaSEXP) {
+RcppExport SEXP _prepr_CPL_prepair_setdiff(SEXP sfcSEXP, SEXP min_areaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -31,12 +31,12 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_prepair_CPL_prepair_oddeven", (DL_FUNC) &_prepair_CPL_prepair_oddeven, 2},
-    {"_prepair_CPL_prepair_setdiff", (DL_FUNC) &_prepair_CPL_prepair_setdiff, 2},
+    {"_prepr_CPL_prepair_oddeven", (DL_FUNC) &_prepr_CPL_prepair_oddeven, 2},
+    {"_prepr_CPL_prepair_setdiff", (DL_FUNC) &_prepr_CPL_prepair_setdiff, 2},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_prepair(DllInfo *dll) {
+RcppExport void R_init_prepr(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 dnl GDAL stuff largely copied from sf, (c) Edzer Pebesma
-AC_INIT(src/prepair.cpp)
+AC_INIT(src/prepr.cpp)
 
 : ${R_HOME=`R RHOME`}
 if test -z "${R_HOME}"; then
@@ -112,7 +112,7 @@ AC_MSG_CHECKING([GDAL version >= 2.0.1])
 GDAL_MAJ_VER=`echo $GDAL_VERSION | cut -d "." -f1`
 if test ${GDAL_MAJ_VER} -lt 2 ; then
   AC_MSG_RESULT(no)
-  AC_MSG_ERROR([prepair is not compatible with GDAL versions below 2.0.1])
+  AC_MSG_ERROR([prepr is not compatible with GDAL versions below 2.0.1])
 else
    AC_MSG_RESULT(yes)
 fi

@@ -1,16 +1,16 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# prepair <img src="man/figures/hex-prepair.png" align="right" height="139" />
+# prepr <img src="man/figures/hex-prepr.png" align="right" height="139" />
 
 <!-- badges: start -->
 
 [![GitLab CI Build
-Status](https://gitlab.com/dickoa/prepair/badges/master/pipeline.svg)](https://gitlab.com/dickoa/prepair/pipelines)
+Status](https://gitlab.com/dickoa/prepr/badges/master/pipeline.svg)](https://gitlab.com/dickoa/prepr/pipelines)
 [![Codecov Code
-Coverage](https://codecov.io/gl/dickoa/prepair/branch/master/graph/badge.svg)](https://codecov.io/gl/dickoa/prepair)
+Coverage](https://codecov.io/gl/dickoa/prepr/branch/master/graph/badge.svg)](https://codecov.io/gl/dickoa/prepr)
 [![CRAN
-status](http://www.r-pkg.org/badges/version/prepair)](http://www.r-pkg.org/pkg/prepair)
+status](http://www.r-pkg.org/badges/version/prepr)](http://www.r-pkg.org/pkg/prepr)
 <!-- badges: end -->
 
 An R package to repair broken GIS polygons using the
@@ -18,12 +18,12 @@ An R package to repair broken GIS polygons using the
 
 ## Installation
 
-The `prepair` Cpp library need these two libraries to compile:
+The `prepr` Cpp library need these two libraries to compile:
 
   - [`CGAL`](https://www.cgal.org/)
   - [`GDAL`](https://gdal.org/)
 
-The R package `prepair` solves the CGAL dependencies by using the
+The R package `prepr` solves the CGAL dependencies by using the
 [`cgal4h`](https://gitlab.com/dickoa/cgal4h) that expose CGAL 4 headers.
 We use [`rwinlib`](https://github.com/rwinlib) to provide `GDAL` on
 Windows in order to build this package from source. You will need the
@@ -39,13 +39,13 @@ build the source code on Windows.
 They are disabled by default on Windows but required if you want to
 build the package in a Linux/OS X environment. After installing all
 these libraries, you can now install the development version of the
-`prepair` R package from [Gitlab](https://gitlab.com/dickoa/prepair)
-using the `remotes` R package with:
+`prepr` R package from [Gitlab](https://gitlab.com/dickoa/prepr) using
+the `remotes` R package with:
 
 ``` r
 # install.packages("remotes")
-remotes::install_gitlab("dickoa/prepair")
-remotes::install_github("dickoa/prepair") ## mirror
+remotes::install_gitlab("dickoa/prepr")
+remotes::install_github("dickoa/prepr") ## mirror
 ```
 
 ## A quick tutorial
@@ -55,8 +55,9 @@ This is a basic example which shows you how to solve a common problem:
 ### A ‘bowtie’ polygon:
 
 ``` r
-library(prepair)
+library(prepr)
 library(sf)
+#> Linking to GEOS 3.8.0, GDAL 3.1.0, PROJ 6.3.1
 
 p1 <- st_as_sfc("POLYGON((0 0, 0 10, 10 0, 10 10, 0 0))")
 st_is_valid(p1, reason = TRUE)
@@ -231,7 +232,7 @@ st_is_valid(clc2_rpr)
 
 ### How fast is `st_prepair` ?
 
-`prepair::st_prepair` is fast and can be in some cases faster than
+`prepr::st_prepair` is fast and can be in some cases faster than
 `sf::st_make_valid`
 
 ``` r
@@ -323,3 +324,17 @@ summary(bnch3, relative = TRUE)
 #> 1 st_make_valid(agb)  1      1         2.40        NA     4.81
 #> 2 st_prepair(agb)     2.40   2.40      1           NA     1
 ```
+
+## Details and how to cite
+
+Details of how we automatically repair broken polygons, and what results
+you can expect, are available in this scientific article by the original
+authors of `prepair`:
+
+> Ledoux, H., Arroyo Ohori, K., and Meijers, M. (2014). A
+> triangulation-based approach to automatically repair GIS polygons.
+> *Computers & Geosciences* 66:121–131.
+> [\[DOI\]](http://dx.doi.org/10.1016/j.cageo.2014.01.009)
+> [\[PDF\]](http://3dgeoinfo.bk.tudelft.nl/hledoux/pdfs/14_cgeo_prepair.pdf)
+
+If you use `prepair` for a scientific project, please cite this article.

@@ -1,4 +1,4 @@
 library(testthat)
 library(prepair)
 
-test_check("prepair")
+test_check("prepr")

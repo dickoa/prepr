@@ -2,10 +2,10 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 CPL_prepair_oddeven <- function(sfc, min_area) {
-    .Call(`_prepair_CPL_prepair_oddeven`, sfc, min_area)
+    .Call(`_prepr_CPL_prepair_oddeven`, sfc, min_area)
 }
 
 CPL_prepair_setdiff <- function(sfc, min_area) {
-    .Call(`_prepair_CPL_prepair_setdiff`, sfc, min_area)
+    .Call(`_prepr_CPL_prepair_setdiff`, sfc, min_area)
 }
 
