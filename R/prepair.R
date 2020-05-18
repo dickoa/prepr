@@ -34,7 +34,7 @@ st_prepair <- function(x, min_area = 0, algorithm = c("oddeven", "setdiff")) {
 
 #' @export
 st_prepair.sfc <- function(x, min_area = 0, algorithm = c("oddeven", "setdiff")) {
-  assert_polygon_type(x)
+  assert_2d_polygon_type(x)
   algorithm  <- match.arg(algorithm)
   switch(algorithm,
          oddeven = st_sfc(CPL_prepair_oddeven(x, min_area), crs = st_crs(x)),
@@ -52,12 +52,13 @@ st_prepair.sfg <- function(x, min_area = 0, algorithm = c("oddeven", "setdiff"))
 }
 
 #' @noRd
-assert_polygon_type <- function(x) {
-  if (!any(sf::st_geometry_type(x) %in% c("POLYGON", "MULTIPOLYGON"))) {
+assert_2d_polygon_type <- function(x) {
+  if (!any(sf::st_geometry_type(x) %in% c("POLYGON", "MULTIPOLYGON")))
     stop("Only POLYGON or MULTIPOLYGON are supported", call. = FALSE)
-  }
-}
 
+  if (st_is_z_non_null(x))
+    stop("3D object not allowed use st_zm to drop Z!", call. = FALSE)
+}
 
 #' @noRd
 first_sfg_from_sfc <- function(x) {
@@ -65,5 +66,14 @@ first_sfg_from_sfc <- function(x) {
     sf::st_geometrycollection()
   } else {
     x[[1]]
+  }
+}
+
+#' @noRd
+st_is_z_non_null <- function(x) {
+  if (length(x) == 0) {
+    FALSE
+  } else {
+    grepl("Z", class(x[[1]])[1])
   }
 }
