@@ -68,8 +68,8 @@ st_is_valid(p11)
 st_as_text(p11)
 
 par(mfrow = c(1, 2))
-plot(p1, main = "RAW")
-plot(p11, main = "Repaired")
+plot(p1, main = "RAW", col = "#D7722C")
+plot(p11, main = "Repaired", col = "#D7722C")
 ```
 
 ### Square with wrong orientation:
@@ -77,6 +77,7 @@ plot(p11, main = "Repaired")
 ```{r p2}
 p2 <- st_as_sfc("POLYGON((0 0, 0 10, 10 10, 10 0, 0 0))")
 st_is_valid(p2, reason = TRUE)
+plot(p2, main = "RAW", col = "#D7722C")
 ```
 
 ### Inner ring with one edge sharing part of an edge of the outer ring:
@@ -90,8 +91,8 @@ st_is_valid(p33)
 st_as_text(p33)
 
 par(mfrow = c(1, 2))
-plot(p3, main = "RAW")
-plot(p33, main = "Repaired")
+plot(p3, main = "RAW", col = "#D7722C")
+plot(p33, main = "Repaired", col = "#D7722C")
 ```
 
 ### Dangling edge:
@@ -105,8 +106,8 @@ st_is_valid(p44)
 st_as_text(p44)
 
 par(mfrow = c(1, 2))
-plot(p4, main = "RAW")
-plot(p44, main = "Repaired")
+plot(p4, main = "RAW", col = "#D7722C")
+plot(p44, main = "Repaired", col = "#D7722C")
 ```
 
 ### Two adjacent inner rings:
@@ -120,8 +121,8 @@ st_is_valid(p66)
 st_as_text(p66)
 
 par(mfrow = c(1, 2))
-plot(p6, main = "RAW")
-plot(p66, main = "Repaired")
+plot(p6, main = "RAW", col = "#D7722C")
+plot(p66, main = "Repaired", col = "#D7722C")
 ```
 
 ### Polygon with an inner ring inside another inner ring:
@@ -134,8 +135,8 @@ st_is_valid(p77)
 st_as_text(p77)
 
 par(mfrow = c(1, 2))
-plot(p7, main = "RAW")
-plot(p77, main = "Repaired")
+plot(p7, main = "RAW", col = "#D7722C")
+plot(p77, main = "Repaired", col = "#D7722C")
 ```
 
 ## A exemple with a real dataset
@@ -200,4 +201,8 @@ Details of how we automatically repair broken polygons, and what results you can
 
 > Ledoux, H., Arroyo Ohori, K., and Meijers, M. (2014). A triangulation-based approach to automatically repair GIS polygons. *Computers & Geosciences* 66:121–131. [ [DOI] ](http://dx.doi.org/10.1016/j.cageo.2014.01.009) [ [PDF] ](http://3dgeoinfo.bk.tudelft.nl/hledoux/pdfs/14_cgeo_prepair.pdf)
 
-If you use `prepair` for a scientific project, please cite this article.
+If you use the R package `prepr` for a scientific project, please cite their original work.
+
+## License
+
+This package is released under the GPL-3 license.

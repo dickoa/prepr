@@ -57,7 +57,6 @@ This is a basic example which shows you how to solve a common problem:
 ``` r
 library(prepr)
 library(sf)
-#> Linking to GEOS 3.8.0, GDAL 3.1.0, PROJ 6.3.1
 
 p1 <- st_as_sfc("POLYGON((0 0, 0 10, 10 0, 10 10, 0 0))")
 st_is_valid(p1, reason = TRUE)
@@ -70,8 +69,8 @@ st_as_text(p11)
 #> [1] "MULTIPOLYGON (((0 10, 0 0, 5 5, 0 10)), ((5 5, 10 0, 10 10, 5 5)))"
 
 par(mfrow = c(1, 2))
-plot(p1, main = "RAW")
-plot(p11, main = "Repaired")
+plot(p1, main = "RAW", col = "#D7722C")
+plot(p11, main = "Repaired", col = "#D7722C")
 ```
 
 <img src="man/figures/README-p1-1.svg" width="100%" />
@@ -82,7 +81,10 @@ plot(p11, main = "Repaired")
 p2 <- st_as_sfc("POLYGON((0 0, 0 10, 10 10, 10 0, 0 0))")
 st_is_valid(p2, reason = TRUE)
 #> [1] "Valid Geometry"
+plot(p2, main = "RAW", col = "#D7722C")
 ```
+
+<img src="man/figures/README-p2-1.svg" width="100%" />
 
 ### Inner ring with one edge sharing part of an edge of the outer ring:
 
@@ -98,8 +100,8 @@ st_as_text(p33)
 #> [1] "MULTIPOLYGON (((10 2, 10 7, 10 10, 0 10, 0 0, 10 0, 10 2)))"
 
 par(mfrow = c(1, 2))
-plot(p3, main = "RAW")
-plot(p33, main = "Repaired")
+plot(p3, main = "RAW", col = "#D7722C")
+plot(p33, main = "Repaired", col = "#D7722C")
 ```
 
 <img src="man/figures/README-p3-1.svg" width="100%" />
@@ -118,8 +120,8 @@ st_as_text(p44)
 #> [1] "MULTIPOLYGON (((0 0, 10 0, 10 10, 0 10, 0 0)))"
 
 par(mfrow = c(1, 2))
-plot(p4, main = "RAW")
-plot(p44, main = "Repaired")
+plot(p4, main = "RAW", col = "#D7722C")
+plot(p44, main = "Repaired", col = "#D7722C")
 ```
 
 <img src="man/figures/README-p4-1.svg" width="100%" />
@@ -138,8 +140,8 @@ st_as_text(p66)
 #> [1] "MULTIPOLYGON (((10 0, 10 10, 0 10, 0 0, 10 0), (1 1, 1 8, 3 8, 5 8, 5 1, 3 1, 1 1)))"
 
 par(mfrow = c(1, 2))
-plot(p6, main = "RAW")
-plot(p66, main = "Repaired")
+plot(p6, main = "RAW", col = "#D7722C")
+plot(p66, main = "Repaired", col = "#D7722C")
 ```
 
 <img src="man/figures/README-p6-1.svg" width="100%" />
@@ -158,8 +160,8 @@ st_as_text(p77)
 #> [1] "MULTIPOLYGON (((10 0, 10 10, 0 10, 0 0, 10 0), (5 2, 2 2, 2 8, 5 8, 5 2)), ((3 4, 3 3, 4 3, 3 4)))"
 
 par(mfrow = c(1, 2))
-plot(p7, main = "RAW")
-plot(p77, main = "Repaired")
+plot(p7, main = "RAW", col = "#D7722C")
+plot(p77, main = "Repaired", col = "#D7722C")
 ```
 
 <img src="man/figures/README-p7-1.svg" width="100%" />
