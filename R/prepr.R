@@ -63,7 +63,7 @@ assert_2d_polygon_type <- function(x) {
 #' @noRd
 first_sfg_from_sfc <- function(x) {
   if (length(x) == 0) {
-    sf::st_geometrycollection()
+    sf::st_multipolygon()
   } else {
     x[[1]]
   }

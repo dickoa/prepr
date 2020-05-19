@@ -31,3 +31,10 @@ test_that("algorithm st_prepair setdiff can give different results than oddeven"
   p <- st_as_sfc("POLYGON((0 0, 10 0, 10 10, 0 10, 0 0), (2 8, 5 8, 5 2, 2 2, 2 8), (3 3, 4 3, 3 4, 3 3))")
   expect_equal(st_prepair(p, algorithm = "setdiff"), st_as_sfc("MULTIPOLYGON (((10 10, 0 10, 0 0, 10 0, 10 10), (5 2, 2 2, 2 8, 5 8, 5 2)))"))
 })
+
+test_that("st_prepair should skip empty polygons", {
+  expect_equal(st_prepair(st_polygon()), st_polygon())
+  expect_equal(st_prepair(st_polygon(), algorithm = "setdiff"), st_polygon())
+  expect_equal(st_prepair(st_multipolygon()), st_multipolygon())
+  expect_equal(st_prepair(st_multipolygon(), algorithm = "setdiff"), st_multipolygon())
+})
