@@ -19,4 +19,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Ahmadou Dicko \email{mail@ahmadoudicko.com}
 
+Authors:
+\itemize{
+  \item Hugo Ledoux \email{h.ledoux@tudelft.nl} (C++ original, https://github.com/tudelft3d/prepair)
+  \item Ken Arroyo Ohori \email{g.a.k.arroyoohori@tudelft.nl} (C++ original, https://github.com/tudelft3d/prepair)
+}
+
 }
