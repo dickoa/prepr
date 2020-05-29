@@ -14,22 +14,21 @@ status](http://www.r-pkg.org/badges/version/prepr)](http://www.r-pkg.org/pkg/pre
 <!-- badges: end -->
 
 An R package to repair broken GIS polygons using the
-[`prepair`](https://github.com/tudelft3d/prepair) Cpp library.
+[`prepair`](https://github.com/tudelft3d/prepair) C++ library.
 
 ## Installation
 
-The `prepr` Cpp library need these two libraries to compile:
+The `prepair` C++ library need these two libraries to compile:
 
   - [`CGAL`](https://www.cgal.org/)
   - [`GDAL`](https://gdal.org/)
 
-The R package `prepr` solves the CGAL dependencies by using the
-[`cgal4h`](https://gitlab.com/dickoa/cgal4h) that expose CGAL 4 headers.
-We use [`rwinlib`](https://github.com/rwinlib) to provide `GDAL` on
-Windows in order to build this package from source. You will need the
-latest version of
-[`rtools`](https://cran.r-project.org/bin/windows/Rtools/) in order to
-build the source code on Windows.
+The R package `prepr` solves the CGAL dependencies by shipping with a
+subset of the CGAL header. We also use
+[`rwinlib`](https://github.com/rwinlib) to provide `GDAL` on Windows in
+order to build this package from source. You will need the latest
+version of [`rtools`](https://cran.r-project.org/bin/windows/Rtools/) in
+order to build the source code on Windows.
 
 `prepair` can also use these optional libraries:
 
@@ -57,6 +56,7 @@ This is a basic example which shows you how to solve a common problem:
 ``` r
 library(prepr)
 library(sf)
+#> Linking to GEOS 3.8.0, GDAL 3.1.0, PROJ 6.3.1
 
 p1 <- st_as_sfc("POLYGON((0 0, 0 10, 10 0, 10 10, 0 0))")
 st_is_valid(p1, reason = TRUE)
@@ -315,16 +315,16 @@ plot(st_geometry(agb), main = "2015 Agriculture baseline", col = 'lightblue', ax
 #> # A tibble: 2 x 6
 #>   expression             min  median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>         <bch:t> <bch:t>     <dbl> <bch:byt>    <dbl>
-#> 1 st_make_valid(agb)   1.61s   1.61s     0.619        NA    1.24 
-#> 2 st_prepair(agb)      3.88s   3.88s     0.258        NA    0.258
+#> 1 st_make_valid(agb)   1.84s   1.84s     0.544        NA    2.18 
+#> 2 st_prepair(agb)      4.27s   4.27s     0.234        NA    0.234
 summary(bnch3, relative = TRUE)
 #> Warning: Some expressions had a GC in every iteration; so
 #> filtering is disabled.
 #> # A tibble: 2 x 6
 #>   expression           min median `itr/sec` mem_alloc `gc/sec`
 #>   <bch:expr>         <dbl>  <dbl>     <dbl>     <dbl>    <dbl>
-#> 1 st_make_valid(agb)  1      1         2.40        NA     4.81
-#> 2 st_prepair(agb)     2.40   2.40      1           NA     1
+#> 1 st_make_valid(agb)  1      1         2.32        NA     9.30
+#> 2 st_prepair(agb)     2.32   2.32      1           NA     1
 ```
 
 ## Details and how to cite
@@ -339,4 +339,9 @@ authors of `prepair`:
 > [\[DOI\]](http://dx.doi.org/10.1016/j.cageo.2014.01.009)
 > [\[PDF\]](http://3dgeoinfo.bk.tudelft.nl/hledoux/pdfs/14_cgeo_prepair.pdf)
 
-If you use `prepair` for a scientific project, please cite this article.
+If you use the R package `prepr` for a scientific project, please cite
+their original work.
+
+## License
+
+This package is released under the GPL-3 license.

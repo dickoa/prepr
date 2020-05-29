@@ -2,6 +2,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^README\.Rmd$
+^README\.md$
 ^covr\.Rproj$
 \.tar\.gz$
 ^travis-tool\.sh$
@@ -38,3 +39,6 @@ _dev\.R$
 ^codecov\.yml$
 ^README_cache$
 ^man/figures/*
+^CONDUCT\.md$
+^doc$
+^Meta$

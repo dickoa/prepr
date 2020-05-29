@@ -2,24 +2,27 @@
 % Please edit documentation in R/prepr.R
 \name{st_prepair}
 \alias{st_prepair}
-\title{Polygon repair}
+\title{Automatic repair of singe polygons}
 \usage{
 st_prepair(x, algorithm = c("oddeven", "setdiff"), min_area = 0)
 }
 \arguments{
-\item{x}{object of class \code{sf}, \code{sfc} or \code{sfg}}
+\item{x}{object of class \code{sf}, \code{sfc} or \code{sfg}, only with POLYGON or MULTIPOLYGON are supported}
 
-\item{algorithm}{character, algorithm used to repair the polygon. oddeven (default) or setdiff.
+\item{algorithm}{character; algorithm used to repair the polygon. oddeven (default) or setdiff.
 More on these two algorithm details.}
 
-\item{min_area}{mininum area to keep in output}
+\item{min_area}{numeric; all polygons with areas smaller than \code{min_area} will be removed.}
 }
 \description{
-Automatically repair single polygons (according to the OGC Simple Features / ISO19107 rules) using a constrained triangulation approach.
+Automatically repair single polygons (according to the OGC Simple Features / ISO 19107 rules) using a constrained triangulation approach.
 }
 \details{
-oddeven: An extension of the odd-even algorithm to handle GIS polygons containing inner rings and degeneracies;
-setdiff: one where we follow a point set difference rule for the rings (outer - inner).
+\code{st_prepair} supports two algorithms:
+\itemize{
+\item oddeven: an extension of the odd-even algorithm to handle GIS polygons containing inner rings and degeneracies;
+\item setdiff: one where we follow a point set difference rule for the rings (outer - inner).
+}
 }
 \examples{
 library(sf)
@@ -27,6 +30,7 @@ p1 <- st_as_sfc("POLYGON((0 0, 0 10, 10 0, 10 10, 0 0))")
 st_is_valid(p1)
 st_prepair(p1)
 st_is_valid(st_prepair(p1))
+
 }
 \references{
 Ledoux, H., Arroyo Ohori, K., and Meijers, M. (2014).
@@ -34,5 +38,5 @@ A triangulation-based approach to automatically repair GIS polygons.
 Computers & Geosciences 66:121–131.
 }
 \seealso{
-\code{sf::st_make_valid} for another approach at fixing broken polygons
+\code{sf::st_make_valid} for another approach to fix broken polygons
 }

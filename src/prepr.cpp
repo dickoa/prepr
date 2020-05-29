@@ -1,9 +1,10 @@
-#include "PolygonRepair.h"
-
 #include <Rcpp.h>
 
-// [[Rcpp::depends(cgal4h, sf)]]
+// [[Rcpp::depends(sf)]]
 #include <sf.h>
+
+#include "PolygonRepair.h"
+
 
 // borrowed from sf source code, (c) Edzer Pebesma
 void handle_error(OGRErr err) {
@@ -28,20 +29,9 @@ void handle_error(OGRErr err) {
 	}
 }
 
-Rcpp::List create_na_crs() {
-  Rcpp::List crs(2);
-  crs(0) = Rcpp::CharacterVector::create(NA_STRING);
-  crs(1) = Rcpp::CharacterVector::create(NA_STRING);
-  Rcpp::CharacterVector nms(2);
-  nms(0) = "input";
-  nms(1) = "wkt";
-  crs.attr("names") = nms;
-  crs.attr("class") = "crs";
-  return crs;
-}
 
 // borrowed from sf source code, (c) Edzer Pebesma
-std::vector<OGRGeometry *> ogr_from_sfc2(Rcpp::List sfc) {
+std::vector<OGRGeometry *> ogr_geometry_from_sfc(Rcpp::List sfc) {
 
   Rcpp::List wkblst = sf::CPL_write_wkb(sfc, false);
   std::vector<OGRGeometry *> g(sfc.length());
@@ -60,7 +50,7 @@ std::vector<OGRGeometry *> ogr_from_sfc2(Rcpp::List sfc) {
 }
 
 // borrowed from sf source code, (c) Edzer Pebesma
-Rcpp::List sfc_from_ogr2(std::vector<OGRGeometry *> g, bool destroy = false) {
+Rcpp::List sfc_from_ogr_geometry(std::vector<OGRGeometry *> g, bool destroy = false) {
   OGRwkbGeometryType type = wkbGeometryCollection;
   Rcpp::List lst(g.size());
   for (size_t i = 0; i < g.size(); i++) {
@@ -82,7 +72,7 @@ Rcpp::List sfc_from_ogr2(std::vector<OGRGeometry *> g, bool destroy = false) {
 // [[Rcpp::export]]
 Rcpp::List CPL_prepair_oddeven(Rcpp::List sfc, double min_area) {
 
-  std::vector<OGRGeometry *> input = ogr_from_sfc2(sfc);
+  std::vector<OGRGeometry *> input = ogr_geometry_from_sfc(sfc);
   PolygonRepair prepair;
   OGRMultiPolygon *out_polygons;
 
@@ -97,13 +87,13 @@ Rcpp::List CPL_prepair_oddeven(Rcpp::List sfc, double min_area) {
     }
   }
 
-  return sfc_from_ogr2(input);
+  return sfc_from_ogr_geometry(input);
 }
 
 // [[Rcpp::export]]
 Rcpp::List CPL_prepair_setdiff(Rcpp::List sfc, double min_area) {
 
-  std::vector<OGRGeometry *> input = ogr_from_sfc2(sfc);
+  std::vector<OGRGeometry *> input = ogr_geometry_from_sfc(sfc);
   PolygonRepair prepair;
   OGRMultiPolygon *out_polygons;
 
@@ -118,5 +108,5 @@ Rcpp::List CPL_prepair_setdiff(Rcpp::List sfc, double min_area) {
     }
   }
 
-  return sfc_from_ogr2(input);
+  return sfc_from_ogr_geometry(input);
 }

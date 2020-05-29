@@ -1,8 +1,6 @@
-# prepair 0.2.0
+prepair 0.2.0 (2020-05-31)
+=========================
 
-* Initial release.
+### NEW FEATURES
 
-# prepair 0.1.9000
-
-* Be more explicit about algorithm choice and replace `point_set` logical parameter by `algorithm`
-  - oddeven or setdiff
+* released to CRAN

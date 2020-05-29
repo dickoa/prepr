@@ -27,3 +27,5 @@ config.status
 
 autom4te.cache/*
 src/autom4te.cache/*
+doc
+Meta

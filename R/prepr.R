@@ -1,15 +1,16 @@
-#' Polygon repair
+#' Automatic repair of singe polygons
 #'
-#' Automatically repair single polygons (according to the OGC Simple Features / ISO19107 rules) using a constrained triangulation approach.
+#' Automatically repair single polygons (according to the OGC Simple Features / ISO 19107 rules) using a constrained triangulation approach.
 #'
-#' @param x object of class \code{sf}, \code{sfc} or \code{sfg}
-#' @param algorithm character, algorithm used to repair the polygon. oddeven (default) or setdiff.
+#' @param x object of class `sf`, `sfc` or `sfg`, only with POLYGON or MULTIPOLYGON are supported
+#' @param algorithm character; algorithm used to repair the polygon. oddeven (default) or setdiff.
 #' More on these two algorithm details.
-#' @param min_area mininum area to keep in output
+#' @param min_area numeric; all polygons with areas smaller than `min_area` will be removed.
 
 #' @details
-#' oddeven: An extension of the odd-even algorithm to handle GIS polygons containing inner rings and degeneracies;
-#' setdiff: one where we follow a point set difference rule for the rings (outer - inner).
+#' `st_prepair` supports two algorithms:
+#' * oddeven: an extension of the odd-even algorithm to handle GIS polygons containing inner rings and degeneracies;
+#' * setdiff: one where we follow a point set difference rule for the rings (outer - inner).
 #'
 #'
 #' @references
@@ -23,7 +24,8 @@
 #' st_is_valid(p1)
 #' st_prepair(p1)
 #' st_is_valid(st_prepair(p1))
-#' @seealso \code{sf::st_make_valid} for another approach at fixing broken polygons
+#'
+#' @seealso `sf::st_make_valid` for another approach to fix broken polygons
 #'
 #' @importFrom sf st_geometry st_set_geometry st_geometry_type st_geometrycollection st_crs st_sfc
 #'

@@ -1,4 +1,0 @@
-#!/bin/sh
-
-# Use libcurl if available
-R_SCRIPT="${R_HOME}/bin${R_ARCH_BIN}/Rscript"

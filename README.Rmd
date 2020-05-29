@@ -22,18 +22,16 @@ knitr::opts_chunk$set(
 [![CRAN status](http://www.r-pkg.org/badges/version/prepr)](http://www.r-pkg.org/pkg/prepr)
 <!-- badges: end -->
 
-An R package to repair broken GIS polygons using the [`prepair`](https://github.com/tudelft3d/prepair) Cpp library.
+An R package to repair broken GIS polygons using the [`prepair`](https://github.com/tudelft3d/prepair) C++ library.
 
 ## Installation
 
-The `prepr` Cpp library need these two libraries to compile:
+The `prepair` C++ library need these two libraries to compile:
 
 - [`CGAL`](https://www.cgal.org/)
 - [`GDAL`](https://gdal.org/)
 
-The R package `prepr` solves the CGAL dependencies by using the [`cgal4h`](https://gitlab.com/dickoa/cgal4h) that expose CGAL 4 headers.
-We use [`rwinlib`](https://github.com/rwinlib) to provide `GDAL` on Windows in order to build this package from source. You will need the latest version
-of [`rtools`](https://cran.r-project.org/bin/windows/Rtools/) in order to build the source code on Windows.
+The R package `prepr` solves the CGAL dependencies by shipping with a subset of the CGAL header. We also use [`rwinlib`](https://github.com/rwinlib) to provide `GDAL` on Windows in order to build this package from source. You will need the latest version of [`rtools`](https://cran.r-project.org/bin/windows/Rtools/) in order to build the source code on Windows.
 
 `prepair` can also use these optional libraries:
 

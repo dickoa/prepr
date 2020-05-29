@@ -1963,7 +1963,7 @@ PKG_LIBS="${GDAL_LIBS}"
 #
 # CGAL flags
 #
-CGAL_CXXFLAGS="-DCGAL_HEADER_ONLY=1 -DRCPP_NO_RTTI -DCGAL_USE_GMP -DCGAL_USE_MPFR -DBOOST_NO_AUTO_PTR -frounding-math"
+CGAL_CXXFLAGS="-I../inst/include -DCGAL_HEADER_ONLY=1 -DRCPP_NO_RTTI -DCGAL_USE_GMP -DCGAL_USE_MPFR -DBOOST_NO_AUTO_PTR -frounding-math"
 
 
 #
@@ -4024,3 +4024,4 @@ if test -n "$ac_unrecognized_opts" && test "$enable_option_checking" != no; then
   { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: unrecognized options: $ac_unrecognized_opts" >&5
 $as_echo "$as_me: WARNING: unrecognized options: $ac_unrecognized_opts" >&2;}
 fi
+
