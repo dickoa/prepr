@@ -114,35 +114,6 @@ plot(p7, main = "RAW", col = "#D7722C")
 plot(p77, main = "Repaired", col = "#D7722C")
 ```
 
-## prepr in action with real datasets
-
-### Reading the data
-
-```{r read_data, cache = TRUE}
-(clc <- read_sf(system.file("geojson/CLC2006_2018418.geojson", package = "prepr")))
-plot(st_geometry(clc), main = "CLC2006_2018418", col = "lightblue", axes = TRUE, graticule = TRUE, lwd = 0.2, cex.axis = 0.5)
-```
-
-### Check if it's valid and repair it
-
-```{r clean_it, cache = TRUE}
-st_is_valid(clc, reason = TRUE)
-(clc_rpr <- st_prepair(clc))
-st_is_valid(clc_rpr)
-```
-
-### How fast is `st_prepair` ?
-
-`prepr::st_prepair` is fast and can be in some cases faster than `sf::st_make_valid`
-
-```{r bench, cache = TRUE}
-library(bench)
-(bnch <- bench::mark(st_make_valid(clc),
-                     st_prepair(clc),
-                     check = FALSE))
-summary(bnch, relative = TRUE)
-```
-
 ## Details and how to cite
 
 Details of how we automatically repair broken polygons, and what results you can expect, are available in this scientific article by the original authors of `prepair`:
