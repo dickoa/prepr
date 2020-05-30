@@ -119,23 +119,16 @@ plot(p77, main = "Repaired", col = "#D7722C")
 ### Reading the data
 
 ```{r read_data, cache = TRUE}
-(clc1 <- read_sf("https://github.com/tudelft3d/prepair/raw/master/data/CLC2006_180927.geojson"))
-(clc2 <- read_sf("https://github.com/tudelft3d/prepair/raw/master/data/CLC2006_2018418.geojson"))
-par(mfrow = c(1, 2))
-plot(st_geometry(clc1), main = "CLC2006_180927", col = 'lightblue', axes = TRUE, graticule = TRUE, lwd = 0.2, cex.axis = 0.5)
-plot(st_geometry(clc2), main = "CLC2006_2018418", col = "lightblue", axes = TRUE, graticule = TRUE, lwd = 0.2, cex.axis = 0.5)
+(clc <- read_sf(system.file("geojson/CLC2006_2018418.geojson", package = "prepr")))
+plot(st_geometry(clc), main = "CLC2006_2018418", col = "lightblue", axes = TRUE, graticule = TRUE, lwd = 0.2, cex.axis = 0.5)
 ```
 
 ### Check if it's valid and repair it
 
 ```{r clean_it, cache = TRUE}
-st_is_valid(clc1, reason = TRUE)
-(clc1_rpr <- st_prepair(clc1))
-st_is_valid(clc1_rpr)
-
-st_is_valid(clc2, reason = TRUE)
-(clc2_rpr <- st_prepair(clc2))
-st_is_valid(clc2_rpr)
+st_is_valid(clc, reason = TRUE)
+(clc_rpr <- st_prepair(clc))
+st_is_valid(clc_rpr)
 ```
 
 ### How fast is `st_prepair` ?
@@ -144,31 +137,10 @@ st_is_valid(clc2_rpr)
 
 ```{r bench, cache = TRUE}
 library(bench)
-(bnch1 <- bench::mark(st_make_valid(clc1), st_prepair(clc1), check = FALSE))
-summary(bnch1, relative = TRUE)
-
-(bnch2 <- bench::mark(st_make_valid(clc2), st_prepair(clc2), check = FALSE))
-summary(bnch2, relative = TRUE)
-```
-
-You also have cases where it's slower to `sf::st_make_valid`, let's use this data from a [closed issue](https://github.com/r-spatial/sf/issues/1280) in the `sf` R package.
-
-```{r new_data, cache = TRUE}
-## need vsicurl
-(agb <- read_sf("/vsicurl/http://files.hawaii.gov/dbedt/op/gis/data/2015AgBaseline.shp.zip"))
-all(st_is_valid(agb))
-all(st_is_valid(st_make_valid(agb)))
-all(st_is_valid(st_prepair(agb)))
-
-plot(st_geometry(agb), main = "2015 Agriculture baseline", col = 'lightblue', axes = TRUE, graticule = TRUE, lwd = 0.2, cex.axis = 0.5)
-```
-
-`sf::st_make_valid` is faster with this data.
-
-
-```{r bench2, cache = TRUE}
-(bnch3 <- bench::mark(st_make_valid(agb), st_prepair(agb), check = FALSE))
-summary(bnch3, relative = TRUE)
+(bnch <- bench::mark(st_make_valid(clc),
+                     st_prepair(clc),
+                     check = FALSE))
+summary(bnch, relative = TRUE)
 ```
 
 ## Details and how to cite
