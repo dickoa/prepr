@@ -7,6 +7,8 @@
 
 [![GitLab CI Build
 Status](https://gitlab.com/dickoa/prepr/badges/master/pipeline.svg)](https://gitlab.com/dickoa/prepr/pipelines)
+[![AppVeyor build
+status](https://ci.appveyor.com/api/projects/status/gitlab/dickoa/prepr?branch=master&svg=true)](https://ci.appveyor.com/project/dickoa/prepr)
 [![Codecov Code
 Coverage](https://codecov.io/gl/dickoa/prepr/branch/master/graph/badge.svg)](https://codecov.io/gl/dickoa/prepr)
 [![CRAN
@@ -56,7 +58,7 @@ This is a basic example which shows you how to solve a common problem:
 ``` r
 library(prepr)
 library(sf)
-#> Linking to GEOS 3.8.0, GDAL 3.1.0, PROJ 6.3.1
+#> Linking to GEOS 3.8.0, GDAL 3.1.0, PROJ 7.0.1
 
 p1 <- st_as_sfc("POLYGON((0 0, 0 10, 10 0, 10 10, 0 0))")
 st_is_valid(p1, reason = TRUE)

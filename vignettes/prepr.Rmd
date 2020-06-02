@@ -16,6 +16,7 @@ vignette: >
 ```{r, echo = FALSE, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
+  cache = TRUE,
   comment = "#>",
   out.width = "100%",
   dev = "svg")

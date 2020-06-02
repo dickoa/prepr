@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![GitLab CI Build Status](https://gitlab.com/dickoa/prepr/badges/master/pipeline.svg)](https://gitlab.com/dickoa/prepr/pipelines)
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/gitlab/dickoa/prepr?branch=master&svg=true)](https://ci.appveyor.com/project/dickoa/prepr)
 [![Codecov Code Coverage](https://codecov.io/gl/dickoa/prepr/branch/master/graph/badge.svg)](https://codecov.io/gl/dickoa/prepr)
 [![CRAN status](http://www.r-pkg.org/badges/version/prepr)](http://www.r-pkg.org/pkg/prepr)
 <!-- badges: end -->
