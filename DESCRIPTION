@@ -22,7 +22,8 @@ SystemRequirements:
 LinkingTo:
     Rcpp,
     BH,
-    sf
+    sf,
+    cgal4h
 Imports:
     Rcpp,
     sf (>= 0.9-3)
@@ -37,3 +38,4 @@ Suggests:
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
+Remotes: gitlab::dicko/cgal4h

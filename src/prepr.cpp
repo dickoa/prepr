@@ -1,6 +1,6 @@
 #include <Rcpp.h>
 
-// [[Rcpp::depends(sf)]]
+// [[Rcpp::depends(cgal4h, sf)]]
 #include <sf.h>
 
 #include "PolygonRepair.h"
