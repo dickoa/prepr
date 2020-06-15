@@ -38,4 +38,4 @@ Suggests:
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
-Remotes: gitlab::dicko/cgal4h
+Remotes: gitlab::dickoa/cgal4h
