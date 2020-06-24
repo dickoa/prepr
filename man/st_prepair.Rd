@@ -2,7 +2,7 @@
 % Please edit documentation in R/prepr.R
 \name{st_prepair}
 \alias{st_prepair}
-\title{Automatic repair of singe polygons}
+\title{Automatic repair of single polygons}
 \usage{
 st_prepair(x, algorithm = c("oddeven", "setdiff"), min_area = 0)
 }

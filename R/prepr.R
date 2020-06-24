@@ -1,4 +1,4 @@
-#' Automatic repair of singe polygons
+#' Automatic repair of single polygons
 #'
 #' Automatically repair single polygons (according to the OGC Simple Features / ISO 19107 rules) using a constrained triangulation approach.
 #'
