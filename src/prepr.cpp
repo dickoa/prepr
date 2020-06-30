@@ -1,10 +1,10 @@
+// [[Rcpp::depends(cgal4h, sf)]]
+
 #include <Rcpp.h>
 
-// [[Rcpp::depends(cgal4h, sf)]]
 #include <sf.h>
 
 #include "PolygonRepair.h"
-
 
 // borrowed from sf source code, (c) Edzer Pebesma
 void handle_error(OGRErr err) {

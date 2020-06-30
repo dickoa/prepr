@@ -19,10 +19,12 @@ Useful links:
 \author{
 \strong{Maintainer}: Ahmadou Dicko \email{mail@ahmadoudicko.com}
 
-Authors:
+Other contributors:
 \itemize{
-  \item Hugo Ledoux \email{h.ledoux@tudelft.nl} (C++ original, https://github.com/tudelft3d/prepair)
-  \item Ken Arroyo Ohori \email{g.a.k.arroyoohori@tudelft.nl} (C++ original, https://github.com/tudelft3d/prepair)
+  \item Edzer Pebesma \email{edzer.pebesma@uni-muenster.de} (\href{https://orcid.org/0000-0001-8049-7069}{ORCID}) [contributor]
+  \item Ken Arroyo Ohori \email{g.a.k.arroyoohori@tudelft.nl} (https://github.com/tudelft3d/prepair) [contributor, copyright holder]
+  \item Hugo Ledoux \email{h.ledoux@tudelft.nl} ( https://github.com/tudelft3d/prepair) [contributor, copyright holder]
+  \item Martijn Meijers \email{b.m.meijers@tudelft.nl} (https://github.com/tudelft3d/prepair) [contributor, copyright holder]
 }
 
 }

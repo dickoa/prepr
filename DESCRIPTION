@@ -2,13 +2,31 @@ Package: prepr
 Type: Package
 Title: Automatic repair of single polygons
 Version: 0.1.9000
-Date: 2020-05-05
-Authors@R: c(person("Ahmadou", "Dicko", email = "mail@ahmadoudicko.com", role = c("aut", "cre")),
-             person("Hugo", "Ledoux", email = "h.ledoux@tudelft.nl", role = "aut",
-   	     comment = "C++ original, https://github.com/tudelft3d/prepair"),
-	     person("Ken", "Arroyo Ohori", email = "g.a.k.arroyoohori@tudelft.nl", role = "aut",
-   	     comment = "C++ original, https://github.com/tudelft3d/prepair"))
-Maintainer: Ahmadou Dicko <mail@ahmadoudicko.com>
+Date: 2020-06-30
+Authors@R: c(person(given = "Ahmadou",
+                    family = "Dicko",
+		    email = "mail@ahmadoudicko.com",
+		    role = c("aut", "cre")),
+             person(given = "Edzer",
+                    family = "Pebesma",
+                    role = "ctb",
+                    email = "edzer.pebesma@uni-muenster.de",
+             comment = c(ORCID = "0000-0001-8049-7069")),
+	     person(given = "Ken",
+	            family = "Arroyo Ohori",
+		    email = "g.a.k.arroyoohori@tudelft.nl",
+		    role = c("ctb", "cph"),
+   	            comment = "https://github.com/tudelft3d/prepair"),
+             person(given = "Hugo",
+	            family = "Ledoux",
+		    email = "h.ledoux@tudelft.nl",
+		    role = c("ctb", "cph"),
+   	            comment = " https://github.com/tudelft3d/prepair"),
+	     person(given = "Martijn",
+	            family = "Meijers",
+		    email = "b.m.meijers@tudelft.nl",
+		    role = c("ctb", "cph"),
+   	            comment = "https://github.com/tudelft3d/prepair"))
 Description: Automatically repair broken GIS polygons using constrained triangulation and returns back a valid polygon.
 Depends: R (>= 3.5.0)
 License: GPL-3
@@ -37,5 +55,4 @@ Suggests:
     covr
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.0
-Remotes: gitlab::dickoa/cgal4h
+RoxygenNote: 7.1.1
