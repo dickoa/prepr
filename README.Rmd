@@ -46,12 +46,12 @@ After installing all these libraries, you can now install the development versio
 # install.packages("remotes")
 remotes::install_gitlab("dickoa/prepr")
 remotes::install_github("dickoa/prepr") ## mirror
-
+remotes::install_git("https://git.ahmadoudicko.com/dickoa/prepr.git") ## mirror
 ```
 
 ## A quick tutorial
 
-This is a basic example which shows you how to solve a common problem:
+This is a simple tutorial which shows you how to solve common problems we can find with polygons:
 
 ### A 'bowtie' polygon:
 
@@ -61,8 +61,10 @@ library(sf)
 
 p1 <- st_as_sfc("POLYGON((0 0, 0 10, 10 0, 10 10, 0 0))")
 st_is_valid(p1, reason = TRUE)
+st_probustness(p1)
 p11 <- st_prepair(p1)
 st_is_valid(p11)
+st_probustness(p11)
 
 st_as_text(p11)
 
@@ -76,6 +78,7 @@ plot(p11, main = "Repaired", col = "#D7722C")
 ```{r p2}
 p2 <- st_as_sfc("POLYGON((0 0, 0 10, 10 10, 10 0, 0 0))")
 st_is_valid(p2, reason = TRUE)
+st_probustness(p2)
 plot(p2, main = "RAW", col = "#D7722C")
 ```
 
@@ -84,8 +87,10 @@ plot(p2, main = "RAW", col = "#D7722C")
 ```{r p3}
 p3 <- st_as_sfc("POLYGON((0 0, 10 0, 10 10, 0 10, 0 0),(5 2, 5 7, 10 7, 10 2, 5 2))")
 st_is_valid(p3, reason = TRUE)
+st_probustness(p3)
 p33 <- st_prepair(p3)
 st_is_valid(p33)
+st_probustness(p33)
 
 st_as_text(p33)
 
@@ -99,8 +104,10 @@ plot(p33, main = "Repaired", col = "#D7722C")
 ```{r p4}
 p4 <- st_as_sfc("POLYGON((0 0, 10 0, 15 5, 10 0, 10 10, 0 10, 0 0))")
 st_is_valid(p4, reason = TRUE)
+st_probustness(p4)
 p44 <- st_prepair(p4)
 st_is_valid(p44)
+st_probustness(p44)
 
 st_as_text(p44)
 
@@ -114,8 +121,10 @@ plot(p44, main = "Repaired", col = "#D7722C")
 ```{r p6}
 p6 <- st_as_sfc("POLYGON((0 0, 10 0, 10 10, 0 10, 0 0), (1 1, 1 8, 3 8, 3 1, 1 1), (3 1, 3 8, 5 8, 5 1, 3 1))")
 st_is_valid(p6, reason = TRUE)
+st_probustness(p6)
 p66 <- st_prepair(p6)
 st_is_valid(p66)
+st_probustness(p66)
 
 st_as_text(p66)
 
@@ -128,8 +137,10 @@ plot(p66, main = "Repaired", col = "#D7722C")
 ```{r p7}
 p7 <- st_as_sfc("POLYGON((0 0, 10 0, 10 10, 0 10, 0 0), (2 8, 5 8, 5 2, 2 2, 2 8), (3 3, 4 3, 3 4, 3 3))")
 st_is_valid(p7, reason = TRUE)
+st_probustness(p7)
 p77 <- st_prepair(p7)
 st_is_valid(p77)
+st_probustness(p77)
 
 st_as_text(p77)
 

@@ -9,3 +9,7 @@ CPL_prepair_setdiff <- function(sfc, min_area) {
     .Call(`_prepr_CPL_prepair_setdiff`, sfc, min_area)
 }
 
+CPL_robustness <- function(sfc) {
+    .Call(`_prepr_CPL_robustness`, sfc)
+}
+

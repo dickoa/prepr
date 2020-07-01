@@ -47,25 +47,30 @@ the `remotes` R package with:
 # install.packages("remotes")
 remotes::install_gitlab("dickoa/prepr")
 remotes::install_github("dickoa/prepr") ## mirror
+remotes::install_git("https://git.ahmadoudicko.com/dickoa/prepr.git") ## mirror
 ```
 
 ## A quick tutorial
 
-This is a basic example which shows you how to solve a common problem:
+This is a simple tutorial which shows you how to solve common problems
+we can find with polygons:
 
 ### A ‘bowtie’ polygon:
 
 ``` r
 library(prepr)
 library(sf)
-#> Linking to GEOS 3.8.0, GDAL 3.1.0, PROJ 7.0.1
 
 p1 <- st_as_sfc("POLYGON((0 0, 0 10, 10 0, 10 10, 0 0))")
 st_is_valid(p1, reason = TRUE)
 #> [1] "Self-intersection[5 5]"
+st_probustness(p1)
+#> [1] 5
 p11 <- st_prepair(p1)
 st_is_valid(p11)
 #> [1] TRUE
+st_probustness(p11)
+#> [1] 0
 
 st_as_text(p11)
 #> [1] "MULTIPOLYGON (((0 10, 0 0, 5 5, 0 10)), ((5 5, 10 0, 10 10, 5 5)))"
@@ -83,6 +88,8 @@ plot(p11, main = "Repaired", col = "#D7722C")
 p2 <- st_as_sfc("POLYGON((0 0, 0 10, 10 10, 10 0, 0 0))")
 st_is_valid(p2, reason = TRUE)
 #> [1] "Valid Geometry"
+st_probustness(p2)
+#> [1] 10
 plot(p2, main = "RAW", col = "#D7722C")
 ```
 
@@ -94,9 +101,13 @@ plot(p2, main = "RAW", col = "#D7722C")
 p3 <- st_as_sfc("POLYGON((0 0, 10 0, 10 10, 0 10, 0 0),(5 2, 5 7, 10 7, 10 2, 5 2))")
 st_is_valid(p3, reason = TRUE)
 #> [1] "Self-intersection[10 2]"
+st_probustness(p3)
+#> [1] 2
 p33 <- st_prepair(p3)
 st_is_valid(p33)
 #> [1] TRUE
+st_probustness(p33)
+#> [1] 2
 
 st_as_text(p33)
 #> [1] "MULTIPOLYGON (((10 2, 10 7, 10 10, 0 10, 0 0, 10 0, 10 2)))"
@@ -114,9 +125,13 @@ plot(p33, main = "Repaired", col = "#D7722C")
 p4 <- st_as_sfc("POLYGON((0 0, 10 0, 15 5, 10 0, 10 10, 0 10, 0 0))")
 st_is_valid(p4, reason = TRUE)
 #> [1] "Self-intersection[10 0]"
+st_probustness(p4)
+#> [1] 5
 p44 <- st_prepair(p4)
 st_is_valid(p44)
 #> [1] TRUE
+st_probustness(p44)
+#> [1] 10
 
 st_as_text(p44)
 #> [1] "MULTIPOLYGON (((0 0, 10 0, 10 10, 0 10, 0 0)))"
@@ -134,9 +149,13 @@ plot(p44, main = "Repaired", col = "#D7722C")
 p6 <- st_as_sfc("POLYGON((0 0, 10 0, 10 10, 0 10, 0 0), (1 1, 1 8, 3 8, 3 1, 1 1), (3 1, 3 8, 5 8, 5 1, 3 1))")
 st_is_valid(p6, reason = TRUE)
 #> [1] "Self-intersection[3 1]"
+st_probustness(p6)
+#> [1] 1
 p66 <- st_prepair(p6)
 st_is_valid(p66)
 #> [1] TRUE
+st_probustness(p66)
+#> [1] 1
 
 st_as_text(p66)
 #> [1] "MULTIPOLYGON (((10 0, 10 10, 0 10, 0 0, 10 0), (1 1, 1 8, 3 8, 5 8, 5 1, 3 1, 1 1)))"
@@ -154,9 +173,13 @@ plot(p66, main = "Repaired", col = "#D7722C")
 p7 <- st_as_sfc("POLYGON((0 0, 10 0, 10 10, 0 10, 0 0), (2 8, 5 8, 5 2, 2 2, 2 8), (3 3, 4 3, 3 4, 3 3))")
 st_is_valid(p7, reason = TRUE)
 #> [1] "Holes are nested[3 3]"
+st_probustness(p7)
+#> [1] 0.7071068
 p77 <- st_prepair(p7)
 st_is_valid(p77)
 #> [1] TRUE
+st_probustness(p77)
+#> [1] 0.7071068
 
 st_as_text(p77)
 #> [1] "MULTIPOLYGON (((10 0, 10 10, 0 10, 0 0, 10 0), (5 2, 2 2, 2 8, 5 8, 5 2)), ((3 4, 3 3, 4 3, 3 4)))"
