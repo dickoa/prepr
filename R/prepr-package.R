@@ -1,10 +1,13 @@
-#' A package for repairing broken GIS polygons
+#' A package for automatically repairing broken polygons
 #'
-#' It is based on the prepair Cpp library, more info at [https://github.com/tudelft3d/prepair](https://github.com/tudelft3d/prepair)
+#' This package contains functions to repair single polygons according to the
+#' international standards ISO 19107 using a constrained triangulation approach.
+#' It is based on the prepair C++ tool.
 #'
 #' @docType package
 #' @name prepr-package
 "_PACKAGE"
 
+#' @importFrom Rcpp evalCpp
 #' @useDynLib prepr, .registration = TRUE
 NULL

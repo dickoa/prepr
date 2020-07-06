@@ -4,9 +4,11 @@
 \name{prepr-package}
 \alias{prepr}
 \alias{prepr-package}
-\title{A package for repairing broken GIS polygons}
+\title{A package for automatically repairing broken polygons}
 \description{
-It is based on the prepair Cpp library, more info at \url{https://github.com/tudelft3d/prepair}
+This package contains functions to repair single polygons according to the
+international standards ISO 19107 using a constrained triangulation approach.
+It is based on the prepair C++ tool.
 }
 \seealso{
 Useful links:

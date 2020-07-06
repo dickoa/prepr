@@ -19,11 +19,13 @@
 #'
 #'
 #' @examples
+#' \dontrun{
 #' library(sf)
 #' p1 <- st_as_sfc("POLYGON((0 0, 0 10, 10 0, 10 10, 0 0))")
 #' st_is_valid(p1)
 #' st_probustness(p1)
 #' st_probustness(st_prepair(p1))
+#' }
 #'
 #' @importFrom sf st_geometry st_sfc st_set_geometry
 #'
