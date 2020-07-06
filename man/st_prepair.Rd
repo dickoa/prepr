@@ -14,6 +14,10 @@ More on these two algorithm details.}
 
 \item{min_area}{numeric; all polygons with areas smaller than \code{min_area} will be removed.}
 }
+\value{
+an object of class \code{sf}, \code{sfc} or \code{sfg} depending on whether
+the input is respectively \code{sf}, \code{sfc} or \code{sfg}
+}
 \description{
 \code{st_prepair} repairs single polygons according to the international standards ISO 19107
 using a constrained triangulation approach.
@@ -37,6 +41,10 @@ st_is_valid(st_prepair(p1))
 Ledoux, H., Arroyo Ohori, K., and Meijers, M. (2014).
 A triangulation-based approach to automatically repair GIS polygons.
 Computers & Geosciences 66:121–131.
+
+van Oosterom P., Quak W., Tijssen T. (2005).
+About Invalid, Valid and Clean Polygons.
+In: Developments in Spatial Data Handling. Springer, Berlin, Heidelberg
 }
 \seealso{
 \code{sf::st_make_valid} for another approach to fix broken polygons

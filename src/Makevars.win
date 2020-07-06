@@ -2,6 +2,13 @@ VERSION = 3.0.4
 RWINLIB = ../windows/gdal3-$(VERSION)
 TARGET = lib$(subst gcc,,$(COMPILED_BY))$(R_ARCH)
 
+PKG_CPPFLAGS = -I$(RWINLIB)/include/gdal-3.0.4 \
+               -DCGAL_DISABLE_GMP \
+               -DCGAL_HEADER_ONLY=1 \
+               -DBOOST_NO_AUTO_PTR \
+               -DRCPP_NO_RTTI \
+               -frounding-math
+
 PKG_LIBS = \
 	-L$(RWINLIB)/$(TARGET) \
 	-L$(RWINLIB)/lib$(R_ARCH) \
@@ -14,11 +21,9 @@ PKG_LIBS = \
 	-lodbc32 -lodbccp32 -liconv -lpsapi -lwldap32 -lsecur32 -lgdi32 -lnormaliz \
 	-lcrypto -lcrypt32 -lws2_32
 
-
-PKG_CXXFLAGS = -I../inst/include -I$(RWINLIB)/include/gdal-3.0.4 -DCGAL_DISABLE_GMP -DCGAL_HEADER_ONLY=1 -DBOOST_NO_AUTO_PTR -DRCPP_NO_RTTI -frounding-math
-CXX_STD = CXX11
-
 all: clean winlibs
+
+CXX_STD = CXX11
 
 winlibs:
 	mkdir -p ../inst

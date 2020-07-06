@@ -18,6 +18,10 @@
 #' A triangulation-based approach to automatically repair GIS polygons.
 #' Computers & Geosciences 66:121–131.
 #'
+#' van Oosterom P., Quak W., Tijssen T. (2005).
+#' About Invalid, Valid and Clean Polygons.
+#' In: Developments in Spatial Data Handling. Springer, Berlin, Heidelberg
+#'
 #' @examples
 #' library(sf)
 #' p1 <- st_as_sfc("POLYGON((0 0, 0 10, 10 0, 10 10, 0 0))")
@@ -27,7 +31,11 @@
 #'
 #' @seealso `sf::st_make_valid` for another approach to fix broken polygons
 #'
-#' @importFrom sf st_geometry st_set_geometry st_geometry_type st_geometrycollection st_crs st_sfc
+#' @importFrom sf st_geometry st_set_geometry st_geometry_type
+#'  st_geometrycollection st_crs st_sfc
+#'
+#' @return an object of class `sf`, `sfc` or `sfg` depending on whether
+#' the input is respectively `sf`, `sfc` or `sfg`
 #'
 #' @export
 st_prepair <- function(x, algorithm = c("oddeven", "setdiff"), min_area = 0) {

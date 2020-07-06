@@ -10,8 +10,13 @@ st_probustness(x)
 \item{x}{object of class \code{sf}, \code{sfc} or \code{sfg}, it only works with POLYGON or MULTIPOLYGON
 are supported}
 }
+\value{
+a numeric vector
+}
 \description{
 Compute polygons robustness, the higher the value the more robust the polygon is.
+robustness can be defined as the largest  distance  of  moving  a  vertex,
+while  the  result  is  still  a  valid  polygon
 }
 \examples{
 library(sf)
@@ -25,4 +30,8 @@ st_probustness(st_prepair(p1))
 Ledoux, H., Arroyo Ohori, K., and Meijers, M. (2014).
 A triangulation-based approach to automatically repair GIS polygons.
 Computers & Geosciences 66:121–131.
+
+van Oosterom P., Quak W., Tijssen T. (2005).
+About Invalid, Valid and Clean Polygons.
+In: Developments in Spatial Data Handling. Springer, Berlin, Heidelberg
 }

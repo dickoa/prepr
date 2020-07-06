@@ -1,8 +1,7 @@
 // [[Rcpp::depends(cgal4h, sf)]]
+#include <sf.h>
 
 #include <Rcpp.h>
-
-#include <sf.h>
 
 #include "PolygonRepair.h"
 
@@ -110,8 +109,6 @@ Rcpp::List CPL_prepair_setdiff(Rcpp::List sfc, double min_area) {
 
     return sfc_from_ogr_geometry(input);
 }
-
-
 
 // [[Rcpp::export]]
 Rcpp::NumericVector CPL_robustness(Rcpp::List sfc) {
