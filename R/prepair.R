@@ -1,8 +1,9 @@
 #' Automatic repair of single polygons
 #'
-#' Automatically repair single polygons (according to the OGC Simple Features / ISO 19107 rules) using a constrained triangulation approach.
+#' `st_prepair` repairs single polygons according to the international standards ISO 19107
+#'  using a constrained triangulation approach.
 #'
-#' @param x object of class `sf`, `sfc` or `sfg`, only with POLYGON or MULTIPOLYGON are supported
+#' @param x object of class `sf`, `sfc` or `sfg`, it only works POLYGON or MULTIPOLYGON are supported
 #' @param algorithm character; algorithm used to repair the polygon. oddeven (default) or setdiff.
 #' More on these two algorithm details.
 #' @param min_area numeric; all polygons with areas smaller than `min_area` will be removed.
@@ -11,7 +12,6 @@
 #' `st_prepair` supports two algorithms:
 #' * oddeven: an extension of the odd-even algorithm to handle GIS polygons containing inner rings and degeneracies;
 #' * setdiff: one where we follow a point set difference rule for the rings (outer - inner).
-#'
 #'
 #' @references
 #' Ledoux, H., Arroyo Ohori, K., and Meijers, M. (2014).

@@ -1,14 +1,16 @@
 #' Compute polygons robustness
 #'
-#' Compute polygons robustness
+#' Compute polygons robustness, the higher the value the more robust the polygon is.
 #'
-#' @param x object of class `sf`, `sfc` or `sfg`, only with POLYGON or MULTIPOLYGON
+#' @param x object of class `sf`, `sfc` or `sfg`, it only works with POLYGON or MULTIPOLYGON
 #'  are supported
+#'
 #'
 #' @references
 #' Ledoux, H., Arroyo Ohori, K., and Meijers, M. (2014).
 #' A triangulation-based approach to automatically repair GIS polygons.
 #' Computers & Geosciences 66:121–131.
+#'
 #'
 #' @examples
 #' library(sf)
@@ -26,6 +28,7 @@ st_probustness <- function(x) {
 
 #' @export
 st_probustness.sfc <- function(x) {
+  assert_2d_polygon_type(x)
   sqrt(CPL_robustness(x))
 }
 

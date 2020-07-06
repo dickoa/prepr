@@ -117,15 +117,13 @@ Rcpp::List CPL_prepair_setdiff(Rcpp::List sfc, double min_area) {
 Rcpp::NumericVector CPL_robustness(Rcpp::List sfc) {
 
     std::vector<OGRGeometry *> input = ogr_geometry_from_sfc(sfc);
-    Rcpp::NumericVector out(input.size());
+    Rcpp::NumericVector out(input.size(), NA_REAL);
     PolygonRepair prepair;
 
     for (size_t i = 0; i < input.size(); i++) {
         OGRGeometry *g = input[i];
-        if (!g->IsEmpty()) {
-            out[i] = NA_REAL;
-        }
-        out[i] = prepair.computeRobustness(g);
+        if (!g->IsEmpty())
+            out[i] = prepair.computeRobustness(g);
     }
     return out;
 }

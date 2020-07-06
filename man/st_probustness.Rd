@@ -7,11 +7,11 @@
 st_probustness(x)
 }
 \arguments{
-\item{x}{object of class \code{sf}, \code{sfc} or \code{sfg}, only with POLYGON or MULTIPOLYGON
+\item{x}{object of class \code{sf}, \code{sfc} or \code{sfg}, it only works with POLYGON or MULTIPOLYGON
 are supported}
 }
 \description{
-Compute polygons robustness
+Compute polygons robustness, the higher the value the more robust the polygon is.
 }
 \examples{
 library(sf)

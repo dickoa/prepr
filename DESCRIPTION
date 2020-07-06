@@ -1,6 +1,6 @@
 Package: prepr
 Type: Package
-Title: Automatic Repair Of Single Polygons
+Title: Automatic Repair of Single Polygons
 Version: 0.1.9000
 Date: 2020-06-30
 Authors@R: c(person(given = "Ahmadou",

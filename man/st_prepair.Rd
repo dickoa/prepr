@@ -7,7 +7,7 @@
 st_prepair(x, algorithm = c("oddeven", "setdiff"), min_area = 0)
 }
 \arguments{
-\item{x}{object of class \code{sf}, \code{sfc} or \code{sfg}, only with POLYGON or MULTIPOLYGON are supported}
+\item{x}{object of class \code{sf}, \code{sfc} or \code{sfg}, it only works POLYGON or MULTIPOLYGON are supported}
 
 \item{algorithm}{character; algorithm used to repair the polygon. oddeven (default) or setdiff.
 More on these two algorithm details.}
@@ -15,7 +15,8 @@ More on these two algorithm details.}
 \item{min_area}{numeric; all polygons with areas smaller than \code{min_area} will be removed.}
 }
 \description{
-Automatically repair single polygons (according to the OGC Simple Features / ISO 19107 rules) using a constrained triangulation approach.
+\code{st_prepair} repairs single polygons according to the international standards ISO 19107
+using a constrained triangulation approach.
 }
 \details{
 \code{st_prepair} supports two algorithms:
