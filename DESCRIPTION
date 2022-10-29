@@ -57,3 +57,5 @@ Suggests:
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
+Remotes:
+    dickoa/cgalh
