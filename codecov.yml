@@ -1,12 +1,9 @@
 comment: false
 ignore:
-  - "prepair/src/RcppExports.cpp"
-  - "prepair/src/Polygonrepair.cpp"
-  - "prepair/src/Polygonrepair.h"
-  - "prepair/src/Triangleinfo.cpp"
-  - "prepair/src/Triangleinfo.h"
-  - "prepair/src/definitions.h"
-  - "prepair/src/prepair.cpp"
+  - "src/RcppExports.cpp"
+  - "src/Polygon_repair.h"
+  - "src/Enhanced_constrained_triangulation_2.h"
+  - "src/prepr.cpp"
 
 coverage:
   status:
