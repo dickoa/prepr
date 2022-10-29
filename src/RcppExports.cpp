@@ -5,46 +5,25 @@
 
 using namespace Rcpp;
 
-// CPL_prepair_oddeven
-Rcpp::List CPL_prepair_oddeven(Rcpp::List sfc, double min_area);
-RcppExport SEXP _prepr_CPL_prepair_oddeven(SEXP sfcSEXP, SEXP min_areaSEXP) {
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
+// CPL_prepair
+Rcpp::List CPL_prepair(Rcpp::List sfc);
+RcppExport SEXP _prepr_CPL_prepair(SEXP sfcSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::List >::type sfc(sfcSEXP);
-    Rcpp::traits::input_parameter< double >::type min_area(min_areaSEXP);
-    rcpp_result_gen = Rcpp::wrap(CPL_prepair_oddeven(sfc, min_area));
-    return rcpp_result_gen;
-END_RCPP
-}
-// CPL_prepair_setdiff
-Rcpp::List CPL_prepair_setdiff(Rcpp::List sfc, double min_area);
-RcppExport SEXP _prepr_CPL_prepair_setdiff(SEXP sfcSEXP, SEXP min_areaSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::List >::type sfc(sfcSEXP);
-    Rcpp::traits::input_parameter< double >::type min_area(min_areaSEXP);
-    rcpp_result_gen = Rcpp::wrap(CPL_prepair_setdiff(sfc, min_area));
-    return rcpp_result_gen;
-END_RCPP
-}
-// CPL_robustness
-Rcpp::NumericVector CPL_robustness(Rcpp::List sfc);
-RcppExport SEXP _prepr_CPL_robustness(SEXP sfcSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::List >::type sfc(sfcSEXP);
-    rcpp_result_gen = Rcpp::wrap(CPL_robustness(sfc));
+    rcpp_result_gen = Rcpp::wrap(CPL_prepair(sfc));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_prepr_CPL_prepair_oddeven", (DL_FUNC) &_prepr_CPL_prepair_oddeven, 2},
-    {"_prepr_CPL_prepair_setdiff", (DL_FUNC) &_prepr_CPL_prepair_setdiff, 2},
-    {"_prepr_CPL_robustness", (DL_FUNC) &_prepr_CPL_robustness, 1},
+    {"_prepr_CPL_prepair", (DL_FUNC) &_prepr_CPL_prepair, 1},
     {NULL, NULL, 0}
 };
 

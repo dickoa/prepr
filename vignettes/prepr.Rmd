@@ -24,10 +24,11 @@ knitr::opts_chunk$set(
 
 ## What is prepr ?
 
-An R package to repair broken GIS polygons using the [`prepair`](https://github.com/tudelft3d/prepair) C++ library.
+An R package to repair broken polygons using the [`prepair`](https://github.com/tudelft3d/prepair) C++ library.
 
 ## prepr in action with simple polygons
 
+`prepr` takes a polygon and returns a valid one.
 This is a basic example which shows you how to solve a common problem:
 
 ### A 'bowtie' polygon:
@@ -40,7 +41,6 @@ p1 <- st_as_sfc("POLYGON((0 0, 0 10, 10 0, 10 10, 0 0))")
 st_is_valid(p1, reason = TRUE)
 p11 <- st_prepair(p1)
 st_is_valid(p11)
-
 st_as_text(p11)
 
 par(mfrow = c(1, 2))

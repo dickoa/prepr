@@ -1,6 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 dnl GDAL stuff largely copied from sf, (c) Edzer Pebesma
-AC_INIT(src/prepr.cpp)
+AC_INIT
+AC_CONFIG_SRCDIR([src/prepr.cpp])
 
 : ${R_HOME=`R RHOME`}
 if test -z "${R_HOME}"; then
@@ -17,25 +18,25 @@ RVER_MINOR=`echo ${RVER} | cut  -f2 -d"."`
 RVER_PATCH=`echo ${RVER} | cut  -f3 -d"."`
 
 if test [$RVER_MAJOR = "development"]; then
-    CXX11=`"${RBIN}" CMD config CXX11`
-    CXX11STD=`"${RBIN}" CMD config CXX11STD`
+    CXX17=`"${RBIN}" CMD config CXX17`
+    CXX17STD=`"${RBIN}" CMD config CXX17STD`
 else
     if test [$RVER_MAJOR -lt 3] -o [$RVER_MAJOR -eq 3 -a $RVER_MINOR -lt 3]; then
         AC_MSG_ERROR([sf is not compatible with R versions before 3.3.0])
     else
         if test [$RVER_MINOR -eq 3]; then
-            CXX11=`"${RBIN}" CMD config CXX1X`
-            CXX11STD=`"${RBIN}" CMD config CXX1XSTD`
+            CXX17=`"${RBIN}" CMD config CXX1X`
+            CXX17STD=`"${RBIN}" CMD config CXX1XSTD`
         else
-            CXX11=`"${RBIN}" CMD config CXX11`
-            CXX11STD=`"${RBIN}" CMD config CXX11STD`
+            CXX17=`"${RBIN}" CMD config CXX14`
+            CXX17STD=`"${RBIN}" CMD config CXX14STD`
         fi
     fi
 fi
 
 # pick all flags for testing from R
 : ${CC=`"${RBIN}" CMD config CC`}
-: ${CXX=${CXX11} ${CXX11STD}}
+: ${CXX=${CXX17} ${CXX17STD}}
 : ${CFLAGS=`"${RBIN}" CMD config CFLAGS`}
 : ${CXXFLAGS=`"${RBIN}" CMD config CXXFLAGS`}
 : ${LDFLAGS=`"${RBIN}" CMD config LDFLAGS`}
@@ -48,8 +49,7 @@ GDAL_CONFIG="gdal-config"
 GDAL_CONFIG_SET="no"
 
 AC_ARG_WITH([gdal-config],
-    AC_HELP_STRING([--with-gdal-config=GDAL_CONFIG],
-           [the location of gdal-config]),
+    AS_HELP_STRING([--with-gdal-config=GDAL_CONFIG],[the location of gdal-config]),
            [gdal_config=$withval])
 if test [ -n "$gdal_config" ] ; then
     GDAL_CONFIG_SET="yes"
@@ -79,7 +79,6 @@ else
     AC_MSG_ERROR([gdal-config not executable.])
   fi
 fi
-
 
 AC_MSG_CHECKING(gdal-config usability)
 if test `${GDAL_CONFIG} --version`;
@@ -123,7 +122,7 @@ AC_SUBST([PKG_LIBS], ["${GDAL_LIBS}"])
 #
 # CGAL flags
 #
-[CGAL_CXXFLAGS="-DCGAL_HEADER_ONLY=1 -DRCPP_NO_RTTI -DBOOST_NO_AUTO_PTR -frounding-math"]
+[CGAL_CXXFLAGS="-O3 -DNDEBUG -frounding-math"]
 AC_SUBST(CGAL_CXXFLAGS)
 
 #
@@ -135,8 +134,8 @@ AC_CHECK_LIB(gmp, __gmpz_init, ,
 AC_CHECK_LIB(mpfr, mpfr_init, ,
     [AC_MSG_ERROR([MPFR Library not found!])])
 
-AC_SUBST([PKG_LIBS], ["${PKG_LIBS} -lgmp -lmpfr -lpthread"])
-AC_SUBST([PKG_CXXFLAGS], ["${PKG_CXXFLAGS} ${CGAL_CXXFLAGS} -DCGAL_USE_GMP"])
+AC_SUBST([PKG_LIBS], ["${PKG_LIBS} -lgmpxx -lgmp -lmpfr -lpthread"])
+AC_SUBST([PKG_CXXFLAGS], ["${PKG_CXXFLAGS} ${CGAL_CXXFLAGS} -DCGAL_USE_GMPXX=1"])
 
 #
 # concluding substitution

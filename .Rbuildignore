@@ -42,3 +42,4 @@ _dev\.R$
 ^CONDUCT\.md$
 ^doc$
 ^Meta$
+^inst/data/*

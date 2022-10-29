@@ -1,7 +1,7 @@
 #' @noRd
-#' @importFrom sf st_geometry
+#' @importFrom sf st_geometry_type
 assert_2d_polygon_type <- function(x) {
-  if (!any(sf::st_geometry_type(x) %in% c("POLYGON", "MULTIPOLYGON")))
+  if (!any(st_geometry_type(x) %in% c("POLYGON", "MULTIPOLYGON")))
     stop("Only POLYGON or MULTIPOLYGON are supported", call. = FALSE)
 
   if (st_is_z_non_null(x))
@@ -12,7 +12,7 @@ assert_2d_polygon_type <- function(x) {
 #' @importFrom sf st_multipolygon
 first_sfg_from_sfc <- function(x) {
   if (length(x) == 0) {
-    sf::st_multipolygon()
+    st_multipolygon()
   } else {
     x[[1]]
   }

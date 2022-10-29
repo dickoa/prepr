@@ -4,15 +4,10 @@
 \alias{st_prepair}
 \title{Automatic repair of single polygons}
 \usage{
-st_prepair(x, algorithm = c("oddeven", "setdiff"), min_area = 0)
+st_prepair(x)
 }
 \arguments{
 \item{x}{object of class \code{sf}, \code{sfc} or \code{sfg}, it only works POLYGON or MULTIPOLYGON are supported}
-
-\item{algorithm}{character; algorithm used to repair the polygon. oddeven (default) or setdiff.
-More on these two algorithm details.}
-
-\item{min_area}{numeric; all polygons with areas smaller than \code{min_area} will be removed.}
 }
 \value{
 an object of class \code{sf}, \code{sfc} or \code{sfg} depending on whether

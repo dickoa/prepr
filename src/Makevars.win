@@ -1,10 +1,9 @@
-VERSION = 3.0.4
+VERSION = 3.4.1
 RWINLIB = ../windows/gdal3-$(VERSION)
 TARGET = lib$(subst gcc,,$(COMPILED_BY))$(R_ARCH)
 
-PKG_CPPFLAGS = -I$(RWINLIB)/include/gdal-3.0.4 \
+PKG_CPPFLAGS = -I$(RWINLIB)/include/gdal-3.4.1 \
                -DCGAL_DISABLE_GMP \
-               -DCGAL_HEADER_ONLY=1 \
                -DBOOST_NO_AUTO_PTR \
                -DRCPP_NO_RTTI \
                -frounding-math
@@ -19,16 +18,17 @@ PKG_LIBS = \
 	-lmfhdf -lhdf -lxdr -lpcre \
 	-lopenjp2 -ljasper -lpng -ljpeg -ltiff -lgeotiff -lgif -lxml2 -llzma -lz \
 	-lodbc32 -lodbccp32 -liconv -lpsapi -lwldap32 -lsecur32 -lgdi32 -lnormaliz \
-	-lcrypto -lcrypt32 -lws2_32
+	-lcrypto -lcrypt32 -lws2_32 -lshlwapi
 
 all: clean winlibs
 
-CXX_STD = CXX11
+CXX_STD = CXX17
 
 winlibs:
 	mkdir -p ../inst
 	"${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" --vanilla "../tools/winlibs.R" $(VERSION)
 	cp -r $(RWINLIB)/share/gdal ../inst/
+        cp -r "$(RWINLIB)/share/proj" ../inst/
 
 clean:
 	rm -f $(SHLIB) $(OBJECTS)

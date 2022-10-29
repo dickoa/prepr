@@ -29,25 +29,14 @@ test_that("st_prepair only accepts polygon and multipolygon", {
 test_that("st_prepair remove small sliver", {
   skip_if_win32()
   p <- st_as_sfc("POLYGON((0 0, 10 0, 10 11, 11 10, 0 10))")
-  expect_equal(st_prepair(p), st_as_sfc("MULTIPOLYGON (((10 0,10 10,0 10,0 0,10 0)),((11 10,10 11,10 10,11 10)))"))
-})
-
-test_that("st_prepair can remove area small than min_area", {
-  skip_if_win32()
-  p <- st_as_sfc("POLYGON((0 0, 10 0, 10 11, 11 10, 0 10))")
-  expect_equal(st_prepair(p, min_area = 1), st_as_sfc("MULTIPOLYGON (((10 0,10 10,0 10,0 0,10 0)))"))
-})
-
-test_that("algorithm st_prepair setdiff can give different results than oddeven", {
-  skip_if_win32()
-  p <- st_as_sfc("POLYGON((0 0, 10 0, 10 10, 0 10, 0 0), (2 8, 5 8, 5 2, 2 2, 2 8), (3 3, 4 3, 3 4, 3 3))")
-  expect_equal(st_prepair(p, algorithm = "setdiff"), st_as_sfc("MULTIPOLYGON (((10 10, 0 10, 0 0, 10 0, 10 10), (5 2, 2 2, 2 8, 5 8, 5 2)))"))
+  expect_equal(st_prepair(p),
+               st_as_sfc("MULTIPOLYGON (((0 0, 10 0, 10 10, 0 10, 0 0)), ((10 10, 11 10, 10 11, 10 10)))"))
 })
 
 test_that("st_prepair should skip empty polygons", {
   skip_if_win32()
   expect_equal(st_prepair(st_polygon()), st_polygon())
-  expect_equal(st_prepair(st_polygon(), algorithm = "setdiff"), st_polygon())
+  expect_equal(st_prepair(st_polygon()), st_polygon())
   expect_equal(st_prepair(st_multipolygon()), st_multipolygon())
-  expect_equal(st_prepair(st_multipolygon(), algorithm = "setdiff"), st_multipolygon())
+  expect_equal(st_prepair(st_multipolygon()), st_multipolygon())
 })

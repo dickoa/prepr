@@ -46,7 +46,6 @@ After installing all these libraries, you can now install the development versio
 # install.packages("remotes")
 remotes::install_gitlab("dickoa/prepr")
 remotes::install_github("dickoa/prepr") ## mirror
-remotes::install_git("https://git.ahmadoudicko.com/dickoa/prepr.git") ## mirror
 ```
 
 ## A quick tutorial
@@ -61,10 +60,8 @@ library(sf)
 
 p1 <- st_as_sfc("POLYGON((0 0, 0 10, 10 0, 10 10, 0 0))")
 st_is_valid(p1, reason = TRUE)
-st_probustness(p1)
 p11 <- st_prepair(p1)
 st_is_valid(p11)
-st_probustness(p11)
 
 st_as_text(p11)
 
@@ -78,7 +75,6 @@ plot(p11, main = "Repaired", col = "#D7722C")
 ```{r p2}
 p2 <- st_as_sfc("POLYGON((0 0, 0 10, 10 10, 10 0, 0 0))")
 st_is_valid(p2, reason = TRUE)
-st_probustness(p2)
 plot(p2, main = "RAW", col = "#D7722C")
 ```
 
@@ -87,10 +83,8 @@ plot(p2, main = "RAW", col = "#D7722C")
 ```{r p3}
 p3 <- st_as_sfc("POLYGON((0 0, 10 0, 10 10, 0 10, 0 0),(5 2, 5 7, 10 7, 10 2, 5 2))")
 st_is_valid(p3, reason = TRUE)
-st_probustness(p3)
 p33 <- st_prepair(p3)
 st_is_valid(p33)
-st_probustness(p33)
 
 st_as_text(p33)
 
@@ -104,10 +98,8 @@ plot(p33, main = "Repaired", col = "#D7722C")
 ```{r p4}
 p4 <- st_as_sfc("POLYGON((0 0, 10 0, 15 5, 10 0, 10 10, 0 10, 0 0))")
 st_is_valid(p4, reason = TRUE)
-st_probustness(p4)
 p44 <- st_prepair(p4)
 st_is_valid(p44)
-st_probustness(p44)
 
 st_as_text(p44)
 
@@ -121,10 +113,8 @@ plot(p44, main = "Repaired", col = "#D7722C")
 ```{r p6}
 p6 <- st_as_sfc("POLYGON((0 0, 10 0, 10 10, 0 10, 0 0), (1 1, 1 8, 3 8, 3 1, 1 1), (3 1, 3 8, 5 8, 5 1, 3 1))")
 st_is_valid(p6, reason = TRUE)
-st_probustness(p6)
 p66 <- st_prepair(p6)
 st_is_valid(p66)
-st_probustness(p66)
 
 st_as_text(p66)
 
@@ -137,10 +127,8 @@ plot(p66, main = "Repaired", col = "#D7722C")
 ```{r p7}
 p7 <- st_as_sfc("POLYGON((0 0, 10 0, 10 10, 0 10, 0 0), (2 8, 5 8, 5 2, 2 2, 2 8), (3 3, 4 3, 3 4, 3 3))")
 st_is_valid(p7, reason = TRUE)
-st_probustness(p7)
 p77 <- st_prepair(p7)
 st_is_valid(p77)
-st_probustness(p77)
 
 st_as_text(p77)
 
@@ -149,61 +137,61 @@ plot(p7, main = "RAW", col = "#D7722C")
 plot(p77, main = "Repaired", col = "#D7722C")
 ```
 
-## A exemple with a real dataset
+<!-- ## A exemple with a real dataset -->
 
-### Reading the data
+<!-- ### Reading the data -->
 
-```{r read_data, cache = TRUE}
-(clc1 <- read_sf("https://github.com/tudelft3d/prepair/raw/master/data/CLC2006_180927.geojson"))
-(clc2 <- read_sf("https://github.com/tudelft3d/prepair/raw/master/data/CLC2006_2018418.geojson"))
-par(mfrow = c(1, 2))
-plot(st_geometry(clc1), main = "CLC2006_180927", col = 'lightblue', axes = TRUE, graticule = TRUE, lwd = 0.2, cex.axis = 0.5)
-plot(st_geometry(clc2), main = "CLC2006_2018418", col = "lightblue", axes = TRUE, graticule = TRUE, lwd = 0.2, cex.axis = 0.5)
-```
+<!-- ```{r read_data, cache = TRUE} -->
+<!-- (clc1 <- read_sf("https://github.com/tudelft3d/prepair/raw/master/data/CLC2006_180927.geojson")) -->
+<!-- (clc2 <- read_sf("https://github.com/tudelft3d/prepair/raw/master/data/CLC2006_2018418.geojson")) -->
+<!-- par(mfrow = c(1, 2)) -->
+<!-- plot(st_geometry(clc1), main = "CLC2006_180927", col = 'lightblue', axes = TRUE, graticule = TRUE, lwd = 0.2, cex.axis = 0.5) -->
+<!-- plot(st_geometry(clc2), main = "CLC2006_2018418", col = "lightblue", axes = TRUE, graticule = TRUE, lwd = 0.2, cex.axis = 0.5) -->
+<!-- ``` -->
 
-### Check if it's valid and repair it
+<!-- ### Check if it's valid and repair it -->
 
-```{r clean_it, cache = TRUE}
-st_is_valid(clc1, reason = TRUE)
-(clc1_rpr <- st_prepair(clc1))
-st_is_valid(clc1_rpr)
+<!-- ```{r clean_it, cache = TRUE} -->
+<!-- st_is_valid(clc1, reason = TRUE) -->
+<!-- (clc1_rpr <- st_prepair(clc1)) -->
+<!-- st_is_valid(clc1_rpr) -->
 
-st_is_valid(clc2, reason = TRUE)
-(clc2_rpr <- st_prepair(clc2))
-st_is_valid(clc2_rpr)
-```
+<!-- st_is_valid(clc2, reason = TRUE) -->
+<!-- (clc2_rpr <- st_prepair(clc2)) -->
+<!-- st_is_valid(clc2_rpr) -->
+<!-- ``` -->
 
-### How fast is `st_prepair` ?
+<!-- ### How fast is `st_prepair` ? -->
 
-`prepr::st_prepair` is fast and can be in some cases faster than `sf::st_make_valid`
+<!-- `prepr::st_prepair` is fast and can be in some cases faster than `sf::st_make_valid` -->
 
-```{r bench, cache = TRUE}
-(bnch1 <- bench::mark(st_make_valid(clc1), st_prepair(clc1), check = FALSE))
-summary(bnch1, relative = TRUE)
+<!-- ```{r bench, cache = TRUE} -->
+<!-- (bnch1 <- bench::mark(st_make_valid(clc1), st_prepair(clc1), check = FALSE)) -->
+<!-- summary(bnch1, relative = TRUE) -->
 
-(bnch2 <- bench::mark(st_make_valid(clc2), st_prepair(clc2), check = FALSE))
-summary(bnch2, relative = TRUE)
-```
+<!-- (bnch2 <- bench::mark(st_make_valid(clc2), st_prepair(clc2), check = FALSE)) -->
+<!-- summary(bnch2, relative = TRUE) -->
+<!-- ``` -->
 
-You also have cases where it's slower to `sf::st_make_valid`, let's use this data from a [closed issue](https://github.com/r-spatial/sf/issues/1280) in the `sf` R package.
+<!-- You also have cases where it's slower to `sf::st_make_valid`, let's use this data from a [closed issue](https://github.com/r-spatial/sf/issues/1280) in the `sf` R package. -->
 
-```{r new_data, cache = TRUE}
-## need vsicurl
-(agb <- read_sf("/vsicurl/http://files.hawaii.gov/dbedt/op/gis/data/2015AgBaseline.shp.zip"))
-all(st_is_valid(agb))
-all(st_is_valid(st_make_valid(agb)))
-all(st_is_valid(st_prepair(agb)))
+<!-- ```{r new_data, cache = TRUE} -->
+<!-- ## need vsicurl -->
+<!-- (agb <- read_sf("/vsicurl/http://files.hawaii.gov/dbedt/op/gis/data/2015AgBaseline.shp.zip")) -->
+<!-- all(st_is_valid(agb)) -->
+<!-- all(st_is_valid(st_make_valid(agb))) -->
+<!-- all(st_is_valid(st_prepair(agb))) -->
 
-plot(st_geometry(agb), main = "2015 Agriculture baseline", col = 'lightblue', axes = TRUE, graticule = TRUE, lwd = 0.2, cex.axis = 0.5)
-```
+<!-- plot(st_geometry(agb), main = "2015 Agriculture baseline", col = 'lightblue', axes = TRUE, graticule = TRUE, lwd = 0.2, cex.axis = 0.5) -->
+<!-- ``` -->
 
-`sf::st_make_valid` is faster with this data.
+<!-- `sf::st_make_valid` is faster with this data. -->
 
 
-```{r bench2, cache = TRUE}
-(bnch3 <- bench::mark(st_make_valid(agb), st_prepair(agb), check = FALSE))
-summary(bnch3, relative = TRUE)
-```
+<!-- ```{r bench2, cache = TRUE} -->
+<!-- (bnch3 <- bench::mark(st_make_valid(agb), st_prepair(agb), check = FALSE)) -->
+<!-- summary(bnch3, relative = TRUE) -->
+<!-- ``` -->
 
 ## Details and how to cite
 

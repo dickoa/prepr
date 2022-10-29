@@ -1,9 +1,13 @@
-// [[Rcpp::depends(cgal4h, sf)]]
+// [[Rcpp::depends(cgalh, sf)]]
+// [[Rcpp::plugins(cpp17)]]
+
 #include <sf.h>
 
 #include <Rcpp.h>
 
-#include "PolygonRepair.h"
+#include <ogrsf_frmts.h>
+
+#include "Polygon_repair.h"
 
 // borrowed from sf source code, (c) Edzer Pebesma
 void handle_error(OGRErr err) {
@@ -31,10 +35,8 @@ void handle_error(OGRErr err) {
 
 // borrowed from sf source code, (c) Edzer Pebesma
 std::vector<OGRGeometry *> ogr_geometry_from_sfc(Rcpp::List sfc) {
-
     Rcpp::List wkblst = sf::CPL_write_wkb(sfc, false);
     std::vector<OGRGeometry *> g(sfc.length());
-
     for (int i = 0; i < wkblst.length(); i++) {
         Rcpp::RawVector r = wkblst[i];
         OGRErr err = OGRGeometryFactory::createFromWkb(&(r[0]), NULL, &(g[i]),
@@ -69,58 +71,16 @@ Rcpp::List sfc_from_ogr_geometry(std::vector<OGRGeometry *> g, bool destroy = fa
 }
 
 // [[Rcpp::export]]
-Rcpp::List CPL_prepair_oddeven(Rcpp::List sfc, double min_area) {
-
+Rcpp::List CPL_prepair(Rcpp::List sfc) {
     std::vector<OGRGeometry *> input = ogr_geometry_from_sfc(sfc);
-    PolygonRepair prepair;
-    OGRMultiPolygon *out_polygons;
-
+    Polygon_repair pr;
     for (size_t i = 0; i < input.size(); i++) {
         OGRGeometry *g = input[i];
         if (!g->IsEmpty()) {
-            out_polygons = prepair.repairOddEven(g, 0);
-            if (min_area > 0) {
-                prepair.removeSmallPolygons(out_polygons, min_area);
-            }
-            input[i] = out_polygons;
+            pr.geometry = g;
+            pr.repair();
+            input[i] = pr.geometry;
         }
     }
-
     return sfc_from_ogr_geometry(input);
-}
-
-// [[Rcpp::export]]
-Rcpp::List CPL_prepair_setdiff(Rcpp::List sfc, double min_area) {
-
-    std::vector<OGRGeometry *> input = ogr_geometry_from_sfc(sfc);
-    PolygonRepair prepair;
-    OGRMultiPolygon *out_polygons;
-
-    for (size_t i = 0; i < input.size(); i++) {
-        OGRGeometry *g = input[i];
-        if (!g->IsEmpty()) {
-            out_polygons = prepair.repairPointSet(g, 0);
-            if (min_area > 0) {
-                prepair.removeSmallPolygons(out_polygons, min_area);
-            }
-            input[i] = out_polygons;
-        }
-    }
-
-    return sfc_from_ogr_geometry(input);
-}
-
-// [[Rcpp::export]]
-Rcpp::NumericVector CPL_robustness(Rcpp::List sfc) {
-
-    std::vector<OGRGeometry *> input = ogr_geometry_from_sfc(sfc);
-    Rcpp::NumericVector out(input.size(), NA_REAL);
-    PolygonRepair prepair;
-
-    for (size_t i = 0; i < input.size(); i++) {
-        OGRGeometry *g = input[i];
-        if (!g->IsEmpty())
-            out[i] = prepair.computeRobustness(g);
-    }
-    return out;
 }

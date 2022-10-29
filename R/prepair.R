@@ -4,9 +4,6 @@
 #'  using a constrained triangulation approach.
 #'
 #' @param x object of class `sf`, `sfc` or `sfg`, it only works POLYGON or MULTIPOLYGON are supported
-#' @param algorithm character; algorithm used to repair the polygon. oddeven (default) or setdiff.
-#' More on these two algorithm details.
-#' @param min_area numeric; all polygons with areas smaller than `min_area` will be removed.
 
 #' @details
 #' `st_prepair` supports two algorithms:
@@ -33,32 +30,30 @@
 #'
 #' @seealso `sf::st_make_valid` for another approach to fix broken polygons
 #'
-#' @importFrom sf st_geometry st_set_geometry st_geometry_type
-#'  st_geometrycollection st_crs st_sfc
 #'
 #' @return an object of class `sf`, `sfc` or `sfg` depending on whether
 #' the input is respectively `sf`, `sfc` or `sfg`
 #'
 #' @export
-st_prepair <- function(x, algorithm = c("oddeven", "setdiff"), min_area = 0) {
+st_prepair <- function(x) {
   UseMethod("st_prepair")
 }
 
 #' @export
-st_prepair.sfc <- function(x, algorithm = c("oddeven", "setdiff"), min_area = 0) {
+#' @importFrom sf st_sfc st_crs
+st_prepair.sfc <- function(x) {
   assert_2d_polygon_type(x)
-  algorithm  <- match.arg(algorithm)
-  switch(algorithm,
-         oddeven = sf::st_sfc(CPL_prepair_oddeven(x, min_area), crs = sf::st_crs(x)),
-         setdiff = sf::st_sfc(CPL_prepair_setdiff(x, min_area), crs = sf::st_crs(x)))
+  st_sfc(CPL_prepair(x), crs = st_crs(x))
 }
 
 #' @export
-st_prepair.sf <- function(x, algorithm = c("oddeven", "setdiff"), min_area = 0) {
-  sf::st_set_geometry(x, st_prepair(sf::st_geometry(x), algorithm, min_area))
+#' @importFrom sf st_set_geometry st_geometry
+st_prepair.sf <- function(x) {
+  st_set_geometry(x, st_prepair(st_geometry(x)))
 }
 
 #' @export
-st_prepair.sfg <- function(x, algorithm = c("oddeven", "setdiff"), min_area = 0) {
-  first_sfg_from_sfc(st_prepair(sf::st_sfc(x), algorithm, min_area))
+#' @importFrom sf st_sfc
+st_prepair.sfg <- function(x) {
+  first_sfg_from_sfc(st_prepair(st_sfc(x)))
 }
