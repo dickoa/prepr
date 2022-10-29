@@ -3,10 +3,8 @@ RWINLIB = ../windows/gdal3-$(VERSION)
 TARGET = lib$(subst gcc,,$(COMPILED_BY))$(R_ARCH)
 
 PKG_CPPFLAGS = -I$(RWINLIB)/include/gdal-3.4.1 \
-               -DCGAL_DISABLE_GMP \
-               -DBOOST_NO_AUTO_PTR \
-               -DRCPP_NO_RTTI \
-               -frounding-math
+               -DCGAL_USE_GMPXX=1 \
+               -O3 -DNDEBUG -frounding-math
 
 PKG_LIBS = \
 	-L$(RWINLIB)/$(TARGET) \
