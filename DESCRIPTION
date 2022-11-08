@@ -28,7 +28,7 @@ Authors@R: c(person(given = "Ahmadou",
 		    role = c("ctb", "cph"),
    	            comment = "https://github.com/tudelft3d/prepair"))
 Description: Automatically repair broken GIS polygons using constrained triangulation and returns back a valid polygon.
-Depends: R (>= 4.1.0)
+Depends: R (>= 4.2.0)
 License: GPL-3
 Encoding: UTF-8
 URL: https://gitlab.com/dickoa/prepr
