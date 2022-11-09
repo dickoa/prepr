@@ -35,13 +35,6 @@ matrix:
 
   - R_VERSION: patched
 
-matrix:
-  fast_finish: true
-
-on_failure:
-  - 7z a failure.zip *.Rcheck\*
-  - appveyor PushArtifact failure.zip
-
 artifacts:
   - path: '*.Rcheck\**\*.log'
     name: Logs
